@@ -1,8 +1,8 @@
-openapi: "3.0.2"
+openapi: 3.1.0
 info:
-    description: "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints."
-    version: "1.0.0"
     title: "Metanomic Economy Engine"
+    version: 1.0.0
+    description: "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints."
     termsOfService: "http://metanomic.net/terms/"
     contact:
         email: "engineering@metanomic.net"
@@ -51,6 +51,8 @@ paths:
     /games/{gameId}/apiKeys:
         get:
             operationId: listApiKeys
+            parameters:
+                - $ref: "#/components/parameters/gameId"
             summary: List The ApiKeys that the account or Organasation has created for the given Game (`gameId`)
             responses:
                 "200":
@@ -59,6 +61,8 @@ paths:
     /games/{gameId}/economy:
         get:
             operationId: getGameEconomyState
+            parameters:
+                - $ref: "#/components/parameters/gameId"
             summary: Retrieve The attached Economy balanced state that the account or Organasation has created for the given Game (`gameId`)
             responses:
                 "200":
@@ -67,6 +71,8 @@ paths:
     /games/{gameId}/events:
         post:
             operationId: submitGameEvent
+            parameters:
+                - $ref: "#/components/parameters/gameId"
             summary: Submit a Message Event related to the game
             responses:
                 "200":
@@ -91,6 +97,8 @@ paths:
     /economies/{economyId}:
         get:
             operationId: listEconomyVersions
+            parameters:
+                - $ref: "#/components/parameters/economyId"
             summary: List The Economy versions setups given Economy (`economyId`)
             responses:
                 "200":
@@ -99,6 +107,9 @@ paths:
     /economies/{economyId}/{economyVersion}:
         get:
             operationId: getEconomyVersion
+            parameters:
+                - $ref: "#/components/parameters/economyId"
+                - $ref: "#/components/parameters/economyVersion"
             summary: Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)
             responses:
                 "200":
@@ -107,6 +118,9 @@ paths:
     /economies/{economyId}/{economyVersion}/modules:
         get:
             operationId: listEconomyModules
+            parameters:
+                - $ref: "#/components/parameters/economyId"
+                - $ref: "#/components/parameters/economyVersion"
             summary: List The Economy Modules that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
             responses:
                 "200":
@@ -115,6 +129,9 @@ paths:
     /economies/{economyId}/{economyVersion}/profiles:
         get:
             operationId: listEconomyProfiles
+            parameters:
+                - $ref: "#/components/parameters/economyId"
+                - $ref: "#/components/parameters/economyVersion"
             summary: List The Economy Simulation Profiles that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
             responses:
                 "200":
@@ -123,17 +140,56 @@ paths:
     /economies/{economyId}/{economyVersion}/simulations:
         get:
             operationId: listEconomySimulations
+            parameters:
+                - $ref: "#/components/parameters/economyId"
+                - $ref: "#/components/parameters/economyVersion"
             summary: List The Economy Simulations that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
             responses:
                 "200":
                     description: |-
                         200 response
 
+webhooks:
+    # Each webhook needs a name
+    newPet:
+        # This is a Path Item Object, the only difference is that the request is initiated by the API provider
+        post:
+            requestBody:
+                description: Information about a new pet in the system
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Pet"
+            responses:
+                "200":
+                    description: Return a 200 status to indicate that the data was received successfully
 
 security:
     - guest: []
     - all: []
 components:
+    parameters:
+        gameId:
+            in: path
+            name: gameId
+            required: true
+            schema:
+                type: string
+            description: The id of the game instance
+        economyId:
+            in: path
+            name: economyId
+            required: true
+            schema:
+                type: string
+            description: The id of the economy instance
+        economyVersion:
+            in: path
+            name: economyVersion
+            required: true
+            schema:
+                type: string
+            description: The version of the economy instance
     schemas:
         Pet:
             allOf:
