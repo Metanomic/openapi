@@ -1,0 +1,66 @@
+{
+    "info": {
+        "_postman_id": "77b257c1-ec29-4a6c-9b8d-e92b7c189c09",
+        "name": "Economy API Tests",
+        "description": "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints.\n\nContact Support:\n Email: engineering@metanomic.net",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "List The Games that the account or Organasation has created",
+            "id": "90045695-0fcf-45c2-b511-29c6ce015e1a",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/games",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "games"
+                    ]
+                }
+            },
+            "response": [
+                {
+                    "id": "5b16e266-8b8d-4113-9fc6-a813377f992f",
+                    "name": "200 response",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/games",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "games"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "text/plain"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": ""
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "id": "bf16f566-ad31-4eb0-94d4-6905f3e7ffc1",
+            "key": "baseUrl",
+            "value": "https://api.metanomic.cloud/v1",
+            "type": "string"
+        }
+    ]
+}
