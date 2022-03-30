@@ -1,19 +1,31 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
     title: "Metanomic Economy Engine"
     version: 1.0.0
     description: "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints."
     termsOfService: "http://metanomic.net/terms/"
     contact:
+        name: Metanomic Engineering
+        url: http://metanomic.net/support
         email: "engineering@metanomic.net"
 servers:
-    - url: https://api.metanomic.cloud/v1
+    - url: https://sandbox.metanomic.cloud/v1
 tags:
     - name: "games"
       description: "Everything about your games"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/games"
+    - name: "economies"
+      description: "Everything about your economies"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/economies"
+    - name: "inventory"
+      description: "Everything about your inventory"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/inventory"
     - name: "session"
       description: "Everything about your session"
       externalDocs:
@@ -43,37 +55,211 @@ paths:
     /games:
         get:
             operationId: listGames
-            summary: List The Games that the account or Organasation has created
+            summary: List all Games
+            description: List the Games that the account has created
+            tags:
+              - games
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a paginated list of games
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Game'
+        post:
+            summary: Creates a new Game entry
+            description: Creates a new Game entry attached to the account
+            tags:
+              - games
+            operationId: createGame
+            requestBody:
+                required: true
+                description: A JSON object with the game attributes
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/NewGame'
+            responses:
+                '201':
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        $ref: '#/components/schemas/ID'
+                    links:
+                        GetGameByGameId:
+                            operationId: getGame
+                            parameters:
+                                gameId: '$response.body#/id'
+                            description: >
+                                The `id` value returned in the response can be used as
+                                the `gameId` parameter in `GET /games/{gameId}`.
+    /games/{gameId}:
+        get:
+            operationId: getGame
+            parameters:
+                - $ref: "#/components/parameters/gameId"
+            summary: Gets a Game setup by gameId
+            description: Gets a Game setup by `gameId`
+            tags:
+              - games
+            responses:
+                "200":
+                    description: The Game Setup Object
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Game'
+                    links:
+                        GetGameByGameId:
+                            operationId: getGame
+                            parameters:
+                                gameId: '$request.path.gameId'
+                            description: >
+                                The `id` value returned in the response can be used as
+                                the `gameId` parameter in `GET /games/{gameId}`.
+                        GetGameEconomyByGameID:
+                            operationId: getGameEconomyState
+                            parameters:
+                                gameId: '$request.path.gameId'
+                            description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+                        GetGameAPIKeysByGameID:
+                            operationId: listApiKeys
+                            parameters:
+                                gameId: '$request.path.gameId'
+                            description: Retrive the list of the API Keys
+                        GetGameInventoryByGameID:
+                            operationId: getGameInventory
+                            parameters:
+                                gameId: '$request.path.gameId'
+                            description: Retrive the attached Game inventory
     /games/{gameId}/apiKeys:
         get:
             operationId: listApiKeys
             parameters:
                 - $ref: "#/components/parameters/gameId"
-            summary: List The ApiKeys that the account or Organasation has created for the given Game (`gameId`)
+            summary: List The ApiKeys
+            description: List The ApiKeys that the account has created for the given Game (`gameId`)
+            tags:
+              - games
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a list of api keys
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
     /games/{gameId}/economy:
         get:
             operationId: getGameEconomyState
             parameters:
                 - $ref: "#/components/parameters/gameId"
-            summary: Retrieve The attached Economy balanced state that the account or Organasation has created for the given Game (`gameId`)
+            summary: Retrieve The attached Economy state
+            description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+            tags:
+              - games
+              - economies
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get the attached economy state
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GameEconomyState'
+    /games/{gameId}/inventory:
+        get:
+            operationId: getGameInventory
+            parameters:
+                - $ref: "#/components/parameters/gameId"
+            summary: Retrieve The Game Inventory
+            description: Retrieve The attached Game Inventory that the account has created for the given Game (`gameId`)
+            tags:
+              - games
+              - economies
+              - inventory
+            responses:
+                "200":
+                    description: Get the attached inventory for the game
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Inventory'
+        post:
+            operationId: addAssetToInventory
+            parameters:
+                - $ref: "#/components/parameters/gameId"
+            summary: Adds a Asset in the Inventory
+            description: Adds a new Asset in the attached Inventory
+            tags:
+              - games
+              - economies
+              - inventory
+            requestBody:
+                required: true
+                description: A JSON object with the asset attributes
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/NewAsset'
+            responses:
+                '201':
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        $ref: '#/components/schemas/ID'
+                    links:
+                        GetGameInventoryByGameID:
+                            operationId: getGameInventory
+                            parameters:
+                                gameId: '$request.path.gameId'
+                            description: Retrive the attached Game inventory
+                        GetGameInventoryAssetByGameIDAndAssetID:
+                            operationId: getGameInventoryAsset
+                            parameters:
+                                gameId: '$request.path.gameId'
+                                assetId: '$response.body#/id'
+                            description: Retrive the created asset from the attached Game inventory
+    /games/{gameId}/inventory/{assetId}:
+        get:
+            operationId: getGameInventoryAsset
+            parameters:
+                - $ref: "#/components/parameters/gameId"
+                - $ref: "#/components/parameters/assetId"
+            summary: Retrieve The Inventory asset
+            description: Retrieve The Inventory asset (`assetId`) that the account has created for the given Game (`gameId`)
+            tags:
+              - games
+              - economies
+              - inventory
+            responses:
+                "200":
+                    description: Get the asset from the attached inventory for the game
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Asset'
     /games/{gameId}/events:
         post:
             operationId: submitGameEvent
             parameters:
                 - $ref: "#/components/parameters/gameId"
-            summary: Submit a Message Event related to the game
+            summary: Submit an in-game Message Event
+            description: Submit a Message Event to the economic balancing engine
+            tags:
+              - games
+              - economies
+              - events
             responses:
                 "200":
                     description: |-
@@ -81,7 +267,10 @@ paths:
     /economies:
         get:
             operationId: listEconomies
-            summary: List The Economies that the account or Organasation has created
+            summary: List The Economies
+            description: List The Economies that the account has created
+            tags:
+              - economies
             responses:
                 "200":
                     description: |-
@@ -89,7 +278,10 @@ paths:
     /templates:
         get:
             operationId: listTemplates
-            summary: List The Economy Templates available for the current account or Organasation
+            summary: List The Economy Templates
+            description: List The Economy Templates available for the current account or Organasation
+            tags:
+              - economies
             responses:
                 "200":
                     description: |-
@@ -99,7 +291,10 @@ paths:
             operationId: listEconomyVersions
             parameters:
                 - $ref: "#/components/parameters/economyId"
-            summary: List The Economy versions setups given Economy (`economyId`)
+            summary: List The Economy versions
+            description: List The Economy versions setups given Economy (`economyId`)
+            tags:
+              - economies
             responses:
                 "200":
                     description: |-
@@ -110,7 +305,10 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/economyId"
                 - $ref: "#/components/parameters/economyVersion"
-            summary: Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)
+            summary: Retrieve The Economy setup
+            description: Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)
+            tags:
+              - economies
             responses:
                 "200":
                     description: |-
@@ -121,7 +319,11 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/economyId"
                 - $ref: "#/components/parameters/economyVersion"
-            summary: List The Economy Modules that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            summary: List The Economy Modules
+            description: List The Economy Modules that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            tags:
+              - economies
+              - modules
             responses:
                 "200":
                     description: |-
@@ -132,7 +334,12 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/economyId"
                 - $ref: "#/components/parameters/economyVersion"
-            summary: List The Economy Simulation Profiles that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            summary: List The Economy Simulation Profiles
+            description: List The Economy Simulation Profiles that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            tags:
+              - economies
+              - modules
+              - simulation
             responses:
                 "200":
                     description: |-
@@ -143,26 +350,33 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/economyId"
                 - $ref: "#/components/parameters/economyVersion"
-            summary: List The Economy Simulations that the account or Organasation has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            summary: List The Economy Simulations
+            description: List The Economy Simulations that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+            tags:
+              - economies
+              - simulation
             responses:
                 "200":
                     description: |-
                         200 response
 
-webhooks:
-    # Each webhook needs a name
-    newPet:
-        # This is a Path Item Object, the only difference is that the request is initiated by the API provider
-        post:
-            requestBody:
-                description: Information about a new pet in the system
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Pet"
-            responses:
-                "200":
-                    description: Return a 200 status to indicate that the data was received successfully
+# webhooks:
+#     StateUpdate:
+#         post:
+#             requestBody:
+#                 description: The game State has been updated
+#                 content:
+#                     application/json:
+#                         schema:
+#                             allOf:
+#                                 - $ref: "#/components/schemas/Game"
+#                                 - $ref: "#/components/schemas/Economy"
+#                                 - $ref: "#/components/schemas/GameEconomyState"
+#             responses:
+#                 "200":
+#                     description: Return a 200 or 202 status to indicate that the data was received successfully
+#                 "202":
+#                     description: Return a 200 or 202 status to indicate that the data was received successfully
 
 security:
     - guest: []
@@ -176,6 +390,21 @@ components:
             schema:
                 type: string
             description: The id of the game instance
+            example:
+                id:
+                    value: "ebd84548-b028-11ec-b909-0242ac120002"
+                    summary: A simple game ID example
+        assetId:
+            in: path
+            name: assetId
+            required: true
+            schema:
+                type: string
+            description: The id of the inventory asset
+            example:
+                id:
+                    value: "ebd84548-b028-11ec-b909-0242ac120002"
+                    summary: A simple asset ID example
         economyId:
             in: path
             name: economyId
@@ -183,6 +412,10 @@ components:
             schema:
                 type: string
             description: The id of the economy instance
+            example:
+                id:
+                    value: "ebd84548-b028-11ec-b909-0242ac120002"
+                    summary: A simple economy ID example
         economyVersion:
             in: path
             name: economyVersion
@@ -190,27 +423,293 @@ components:
             schema:
                 type: string
             description: The version of the economy instance
+            example:
+                main:
+                    value: "main"
+                    summary: The initial default main version
+                draft:
+                    value: "draft-123"
+                    summary: A simple draft economy
     schemas:
-        Pet:
+        Game:
             allOf:
-                - $ref: "#/components/schemas/NewPet"
+                - $ref: "#/components/schemas/NewGame"
                 - type: object
-                  required:
-                      - id
                   properties:
-                      id:
-                          type: integer
-                          format: int64
+                    id:
+                        $ref: "#/components/schemas/ID"
+                    tags:
+                        $ref: "#/components/schemas/Tags"
 
-        NewPet:
+        Economy:
+            allOf:
+                - $ref: "#/components/schemas/NewEconomy"
+                - type: object
+                  properties:
+                    id:
+                        $ref: "#/components/schemas/ID"
+                    tags:
+                        $ref: "#/components/schemas/Tags"
+
+        GameEconomyState:
+            allOf:
+                - $ref: "#/components/schemas/State"
+                - type: object
+                  properties:
+                    id:
+                        $ref: "#/components/schemas/ID"
+
+        Module:
+            allOf:
+                - $ref: "#/components/schemas/NewModule"
+                - type: object
+                  properties:
+                    id:
+                        $ref: "#/components/schemas/ID"
+                    tags:
+                        $ref: "#/components/schemas/Tags"
+
+        Asset:
+            allOf:
+                - $ref: "#/components/schemas/NewAsset"
+                - type: object
+                  properties:
+                    id:
+                        $ref: "#/components/schemas/ID"
+                    tags:
+                        $ref: "#/components/schemas/Tags"
+
+        Inventory:
+            type: object
+            properties:
+                id:
+                    $ref: "#/components/schemas/ID"
+                tags:
+                    $ref: "#/components/schemas/Tags"
+                assets:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Asset"
+
+        Event:
+            allOf:
+                - $ref: "#/components/schemas/NewEvent"
+                - type: object
+                  properties:
+                    id:
+                        $ref: "#/components/schemas/ID"
+                    tags:
+                        $ref: "#/components/schemas/Tags"
+
+
+
+        ID:
+            type: string
+            description: The instance ID
+            example:
+                id:
+                    value: "ebd84548-b028-11ec-b909-0242ac120002"
+                    summary: A simple instance ID example, of Economy, module, Game etc..
+        Tags:
+            type: array
+            items:
+                $ref: "#/components/schemas/Tag"
+        Tag:
+            type: string
+            example:
+                tag:
+                    value: "drafting"
+                    summary: an example Tag
+        
+        GameElements:
+            type: array
+            items:
+                $ref: "#/components/schemas/GameElement"
+        GameElement:
+            type: string
+            enum:
+                - NFTs
+                - Blockchain
+                - P2E
+                - P&E
+                - Governance
+                - Monetary
+                - Tokenomics
+                - Leveling
+                - Mapping
+                - Mining
+                - Burning
+                - Gathering
+                - Skining
+
+        GameGenres:
+            type: array
+            items:
+                $ref: "#/components/schemas/GameGenre"
+        GameGenre:
+            type: string
+            enum:
+                - Sandbox
+                - Real-time strategy (RTS)
+                - Shooters (FPS and TPS)
+                - Multiplayer online battle arena (MOBA)
+                - RPG
+                - Simulation
+                - Puzzlers
+                - Action-adventure
+                - Survival
+                - Platformer
+
+        NewGame:
             type: object
             required:
-                - name
+                - title
+                - description
+                - genre
+                - elements
             properties:
-                name:
+                title:
                     type: string
-                tag:
+                description:
                     type: string
+                elements:
+                    $ref: "#/components/schemas/GameElements"
+                genre:
+                    $ref: "#/components/schemas/GameGenres"
+
+        ModuleAtomicType:
+            type: string
+            enum:
+                - DAG # Has an execution Stack
+                - Time # eg do that every 5hrs
+                - Conditional # if (input.s-rate>5) do 
+                - Probabilistic # F(xyz)
+                - Set # Save input to State
+                - Const # Override the balance value
+                - Lambda # Actual script code
+                - Profile # Set of fixed inputs (player Profile)
+        NewModule:
+            type: object
+            required:
+                - title
+                - description
+                - atomicType
+                - executionStack
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                atomicType:
+                    $ref: "#/components/schemas/ModuleAtomicType"
+                executionStack:
+                    $ref: "#/components/schemas/ID"
+
+        NewEconomy:
+            type: object
+            required:
+                - title
+                - description
+                - genre
+                - elements
+                - executionStack
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                elements:
+                    $ref: "#/components/schemas/GameElements"
+                genre:
+                    $ref: "#/components/schemas/GameGenres"
+                executionStack:
+                    $ref: "#/components/schemas/ID"
+
+        State:
+            type: object
+            additionalProperties: true
+            properties:
+                last_update:
+                    type: number
+                executionStack:
+                    $ref: "#/components/schemas/ID"
+                assets:
+                    type: array
+                    items: {}
+                values:
+                    type: array
+                    items: {}
+
+        AssetType:
+            type: string
+            enum:
+                - Resource # Atomic level of an input resource (eg Wooden Stick, herbs, or a coin)
+                - Item # eg a Sword; Unique, Rare or Supply Bounded
+                - Craft # eg a potion
+                - Input # Set of Resources, (Monsters/Entity??)
+                - Modifier # Player Stat, Stat that enriches craft
+        NewAsset:
+            type: object
+            required:
+                - title
+                - description
+                - categories
+                - classification
+                - variables
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                assetType:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/AssetType"
+                inputs:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/ID"
+                outputs:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/ID"
+                conditions: # Condition<F: module, Event>
+                    type: array
+                    items:
+                        type: object
+                categories: # List<String>, eg 1. Melee, 2. Sword
+                    type: array
+                    items:
+                        type: string
+                classification: # String Type, eg is Weapon, is Potion
+                    type: string
+                variables:
+                    type: object
+
+        EventType:
+            type: string
+            enum:
+                - Action
+                - Transaction
+                - Spread
+                - Traffic
+                - Supply
+                - Spawn
+                - Gathering
+                - Wallet
+                - Resistance
+                - Custom
+        NewEvent:
+            type: object
+            required:
+                - eventType
+                - value
+            properties:
+                eventType:
+                    $ref: "#/components/schemas/EventType"
+                value:
+                    type: object
+
 
         Error:
             type: object
