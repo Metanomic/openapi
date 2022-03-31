@@ -26,11 +26,6 @@ tags:
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/inventory"
-    - name: "session"
-      description: "Everything about your session"
-      externalDocs:
-          description: "Find out more"
-          url: "http://docs.metanomic.net/session"
     - name: "simulation"
       description: "Everything about your simulation"
       externalDocs:
@@ -46,6 +41,11 @@ tags:
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/analytics"
+    - name: "templates"
+      description: "Everything about your templates"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/templates"
     - name: "events"
       description: "Everything about your events"
       externalDocs:
@@ -264,6 +264,22 @@ paths:
                 "200":
                     description: |-
                         200 response
+    /games/{gameId}/telemetry:
+        get:
+            operationId: getTelemetryStats
+            parameters:
+                - $ref: "#/components/parameters/gameId"
+            summary: Retrieve Telemetry stats
+            description: Retrieve Telemetry stats for the given Game (`gameId`) and its attached economy and simulations
+            tags:
+              - games
+              - economies
+              - events
+              - analytics
+            responses:
+                "200":
+                    description: |-
+                        200 response
     /economies:
         get:
             operationId: listEconomies
@@ -275,13 +291,25 @@ paths:
                 "200":
                     description: |-
                         200 response
+    /modules:
+        get:
+            operationId: listModules
+            summary: List The Available Modules
+            description: List The Available to use Economy modules for the current account
+            tags:
+              - modules
+            responses:
+                "200":
+                    description: |-
+                        200 response
     /templates:
         get:
             operationId: listTemplates
             summary: List The Economy Templates
-            description: List The Economy Templates available for the current account or Organasation
+            description: List The Economy Templates available for the current account
             tags:
               - economies
+              - templates
             responses:
                 "200":
                     description: |-
@@ -378,9 +406,6 @@ paths:
 #                 "202":
 #                     description: Return a 200 or 202 status to indicate that the data was received successfully
 
-security:
-    - guest: []
-    - all: []
 components:
     parameters:
         gameId:
