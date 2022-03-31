@@ -1,0 +1,928 @@
+openapi: 3.0.3
+info:
+  title: Metanomic Economy Engine
+  description: "This is the API server for the Metanomic Economy Engine. You can find\
+    \ out more about Metanomic at [http://metanomic.net](http://metanomic.net). You\
+    \ will need a set of Account API Keys to test the entrypoints."
+  termsOfService: http://metanomic.net/terms/
+  contact:
+    name: Metanomic Engineering
+    url: http://metanomic.net/support
+    email: engineering@metanomic.net
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/metanomic/Economy-Engine-API/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://sandbox.metanomic.cloud/v1
+tags:
+- name: games
+  description: Everything about your games
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/games
+- name: economies
+  description: Everything about your economies
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/economies
+- name: inventory
+  description: Everything about your inventory
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/inventory
+- name: simulation
+  description: Everything about your simulation
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/simulation
+- name: modules
+  description: Everything about your modules
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/modules
+- name: analytics
+  description: Everything about your analytics
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/analytics
+- name: templates
+  description: Everything about your templates
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/templates
+- name: events
+  description: Everything about your events
+  externalDocs:
+    description: Find out more
+    url: http://docs.metanomic.net/events
+paths:
+  /games:
+    get:
+      tags:
+      - games
+      summary: List all Games
+      description: List the Games that the account has created
+      operationId: listGames
+      responses:
+        "200":
+          description: Get a paginated list of games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      tags:
+      - games
+      summary: Creates a new Game entry
+      description: Creates a new Game entry attached to the account
+      operationId: createGame
+      requestBody:
+        description: A JSON object with the game attributes
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGame'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+          links:
+            GetGameByGameId:
+              operationId: getGame
+              parameters:
+                gameId: $response.body#/id
+              description: "The `id` value returned in the response can be used as\
+                \ the `gameId` parameter in `GET /games/{gameId}`.\n"
+  /games/{gameId}:
+    get:
+      tags:
+      - games
+      summary: Gets a Game setup by gameId
+      description: Gets a Game setup by `gameId`
+      operationId: getGame
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      responses:
+        "200":
+          description: The Game Setup Object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+          links:
+            GetGameByGameId:
+              operationId: getGame
+              parameters:
+                gameId: $request.path.gameId
+              description: "The `id` value returned in the response can be used as\
+                \ the `gameId` parameter in `GET /games/{gameId}`.\n"
+            GetGameEconomyByGameID:
+              operationId: getGameEconomyState
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrieve The attached Economy balanced state that the account
+                has created for the given Game (`gameId`)
+            GetGameAPIKeysByGameID:
+              operationId: listApiKeys
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the list of the API Keys
+            GetGameInventoryByGameID:
+              operationId: getGameInventory
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the attached Game inventory
+  /games/{gameId}/apiKeys:
+    get:
+      tags:
+      - games
+      summary: List The ApiKeys
+      description: List The ApiKeys that the account has created for the given Game
+        (`gameId`)
+      operationId: listApiKeys
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      responses:
+        "200":
+          description: Get a list of api keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /games/{gameId}/economy:
+    get:
+      tags:
+      - games
+      - economies
+      summary: Retrieve The attached Economy state
+      description: Retrieve The attached Economy balanced state that the account has
+        created for the given Game (`gameId`)
+      operationId: getGameEconomyState
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      responses:
+        "200":
+          description: Get the attached economy state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameEconomyState'
+  /games/{gameId}/inventory:
+    get:
+      tags:
+      - games
+      - economies
+      - inventory
+      summary: Retrieve The Game Inventory
+      description: Retrieve The attached Game Inventory that the account has created
+        for the given Game (`gameId`)
+      operationId: getGameInventory
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      responses:
+        "200":
+          description: Get the attached inventory for the game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+    post:
+      tags:
+      - games
+      - economies
+      - inventory
+      summary: Adds a Asset in the Inventory
+      description: Adds a new Asset in the attached Inventory
+      operationId: addAssetToInventory
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      requestBody:
+        description: A JSON object with the asset attributes
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAsset'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+          links:
+            GetGameInventoryByGameID:
+              operationId: getGameInventory
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the attached Game inventory
+            GetGameInventoryAssetByGameIDAndAssetID:
+              operationId: getGameInventoryAsset
+              parameters:
+                gameId: $request.path.gameId
+                assetId: $response.body#/id
+              description: Retrive the created asset from the attached Game inventory
+  /games/{gameId}/inventory/{assetId}:
+    get:
+      tags:
+      - games
+      - economies
+      - inventory
+      summary: Retrieve The Inventory asset
+      description: Retrieve The Inventory asset (`assetId`) that the account has created
+        for the given Game (`gameId`)
+      operationId: getGameInventoryAsset
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      - name: assetId
+        in: path
+        description: The id of the inventory asset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple asset ID example
+      responses:
+        "200":
+          description: Get the asset from the attached inventory for the game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+  /games/{gameId}/events:
+    post:
+      tags:
+      - games
+      - economies
+      - events
+      - analytics
+      summary: Submit an in-game Message Event
+      description: Submit a Message Event to the economic balancing engine
+      operationId: submitGameEvent
+      parameters:
+      - name: gameId
+        in: path
+        description: The id of the game instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple game ID example
+      responses:
+        "200":
+          description: 200 response
+  /economies:
+    get:
+      tags:
+      - economies
+      summary: List The Economies
+      description: List The Economies that the account has created
+      operationId: listEconomies
+      responses:
+        "200":
+          description: 200 response
+  /modules:
+    get:
+      tags:
+      - modules
+      summary: List The Available Modules
+      description: List The Available to use Economy modules for the current account
+      operationId: listModules
+      responses:
+        "200":
+          description: 200 response
+  /templates:
+    get:
+      tags:
+      - economies
+      - templates
+      summary: List The Economy Templates
+      description: List The Economy Templates available for the current account
+      operationId: listTemplates
+      responses:
+        "200":
+          description: 200 response
+  /economies/{economyId}:
+    get:
+      tags:
+      - economies
+      summary: List The Economy versions
+      description: List The Economy versions setups given Economy (`economyId`)
+      operationId: listEconomyVersions
+      parameters:
+      - name: economyId
+        in: path
+        description: The id of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple economy ID example
+      responses:
+        "200":
+          description: 200 response
+  /economies/{economyId}/{economyVersion}:
+    get:
+      tags:
+      - economies
+      summary: Retrieve The Economy setup
+      description: Retrieve The Economy setup given Economy (`economyId`) and it's
+        Version (`economyVersion`)
+      operationId: getEconomyVersion
+      parameters:
+      - name: economyId
+        in: path
+        description: The id of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple economy ID example
+      - name: economyVersion
+        in: path
+        description: The version of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          main:
+            value: main
+            summary: The initial default main version
+          draft:
+            value: draft-123
+            summary: A simple draft economy
+      responses:
+        "200":
+          description: 200 response
+  /economies/{economyId}/{economyVersion}/modules:
+    get:
+      tags:
+      - economies
+      - modules
+      summary: List The Economy Modules
+      description: List The Economy Modules that the account has created for the given
+        Economy (`economyId`) and it's Version (`economyVersion`)
+      operationId: listEconomyModules
+      parameters:
+      - name: economyId
+        in: path
+        description: The id of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple economy ID example
+      - name: economyVersion
+        in: path
+        description: The version of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          main:
+            value: main
+            summary: The initial default main version
+          draft:
+            value: draft-123
+            summary: A simple draft economy
+      responses:
+        "200":
+          description: 200 response
+  /economies/{economyId}/{economyVersion}/profiles:
+    get:
+      tags:
+      - economies
+      - modules
+      - simulation
+      summary: List The Economy Simulation Profiles
+      description: List The Economy Simulation Profiles that the account has created
+        for the given Economy (`economyId`) and it's Version (`economyVersion`)
+      operationId: listEconomyProfiles
+      parameters:
+      - name: economyId
+        in: path
+        description: The id of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple economy ID example
+      - name: economyVersion
+        in: path
+        description: The version of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          main:
+            value: main
+            summary: The initial default main version
+          draft:
+            value: draft-123
+            summary: A simple draft economy
+      responses:
+        "200":
+          description: 200 response
+  /economies/{economyId}/{economyVersion}/simulations:
+    get:
+      tags:
+      - economies
+      - simulation
+      summary: List The Economy Simulations
+      description: List The Economy Simulations that the account has created for the
+        given Economy (`economyId`) and it's Version (`economyVersion`)
+      operationId: listEconomySimulations
+      parameters:
+      - name: economyId
+        in: path
+        description: The id of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          id:
+            value: ebd84548-b028-11ec-b909-0242ac120002
+            summary: A simple economy ID example
+      - name: economyVersion
+        in: path
+        description: The version of the economy instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example:
+          main:
+            value: main
+            summary: The initial default main version
+          draft:
+            value: draft-123
+            summary: A simple draft economy
+      responses:
+        "200":
+          description: 200 response
+components:
+  schemas:
+    Game:
+      allOf:
+      - $ref: '#/components/schemas/NewGame'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+          tags:
+            $ref: '#/components/schemas/Tags'
+    Economy:
+      allOf:
+      - $ref: '#/components/schemas/NewEconomy'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+          tags:
+            $ref: '#/components/schemas/Tags'
+    GameEconomyState:
+      allOf:
+      - $ref: '#/components/schemas/State'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+    Module:
+      allOf:
+      - $ref: '#/components/schemas/NewModule'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+          tags:
+            $ref: '#/components/schemas/Tags'
+    Asset:
+      allOf:
+      - $ref: '#/components/schemas/NewAsset'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+          tags:
+            $ref: '#/components/schemas/Tags'
+    Inventory:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+    Event:
+      allOf:
+      - $ref: '#/components/schemas/NewEvent'
+      - type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ID'
+          tags:
+            $ref: '#/components/schemas/Tags'
+    ID:
+      type: string
+      description: The instance ID
+      example: "{\"id\":{\"value\":\"ebd84548-b028-11ec-b909-0242ac120002\",\"summary\"\
+        :\"A simple instance ID example, of Economy, module, Game etc..\"}}"
+    Tags:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
+    Tag:
+      type: string
+      example: "{\"tag\":{\"value\":\"drafting\",\"summary\":\"an example Tag\"}}"
+    GameElements:
+      type: array
+      items:
+        $ref: '#/components/schemas/GameElement'
+    GameElement:
+      type: string
+      enum:
+      - NFTs
+      - Blockchain
+      - P2E
+      - P&E
+      - Governance
+      - Monetary
+      - Tokenomics
+      - Leveling
+      - Mapping
+      - Mining
+      - Burning
+      - Gathering
+      - Skining
+    GameGenres:
+      type: array
+      items:
+        $ref: '#/components/schemas/GameGenre'
+    GameGenre:
+      type: string
+      enum:
+      - Sandbox
+      - Real-time strategy (RTS)
+      - Shooters (FPS and TPS)
+      - Multiplayer online battle arena (MOBA)
+      - RPG
+      - Simulation
+      - Puzzlers
+      - Action-adventure
+      - Survival
+      - Platformer
+    NewGame:
+      required:
+      - description
+      - elements
+      - genre
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        elements:
+          $ref: '#/components/schemas/GameElements'
+        genre:
+          $ref: '#/components/schemas/GameGenres'
+    ModuleAtomicType:
+      type: string
+      enum:
+      - DAG
+      - Time
+      - Conditional
+      - Probabilistic
+      - Set
+      - Const
+      - Lambda
+      - Profile
+    NewModule:
+      required:
+      - atomicType
+      - description
+      - executionStack
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        atomicType:
+          $ref: '#/components/schemas/ModuleAtomicType'
+        executionStack:
+          $ref: '#/components/schemas/ID'
+    NewEconomy:
+      required:
+      - description
+      - elements
+      - executionStack
+      - genre
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        elements:
+          $ref: '#/components/schemas/GameElements'
+        genre:
+          $ref: '#/components/schemas/GameGenres'
+        executionStack:
+          $ref: '#/components/schemas/ID'
+    State:
+      type: object
+      properties:
+        last_update:
+          type: number
+        executionStack:
+          $ref: '#/components/schemas/ID'
+        assets:
+          type: array
+          items: {}
+        values:
+          type: array
+          items: {}
+      additionalProperties: true
+    AssetType:
+      type: string
+      enum:
+      - Resource
+      - Item
+      - Craft
+      - Input
+      - Modifier
+    NewAsset:
+      required:
+      - categories
+      - classification
+      - description
+      - title
+      - variables
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        assetType:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetType'
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+        conditions:
+          type: array
+          items:
+            type: object
+        categories:
+          type: array
+          items:
+            type: string
+        classification:
+          type: string
+        variables:
+          type: object
+    EventType:
+      type: string
+      enum:
+      - Action
+      - Transaction
+      - Spread
+      - Traffic
+      - Supply
+      - Spawn
+      - Gathering
+      - Wallet
+      - Resistance
+      - Custom
+    NewEvent:
+      required:
+      - eventType
+      - value
+      type: object
+      properties:
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        value:
+          type: object
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    name:
+      type: object
+      properties:
+        property:
+          type: integer
+    inline_response_201:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+  responses:
+    name:
+      description: ""
+      content:
+        application/json:
+          schema: {}
+  parameters:
+    gameId:
+      name: gameId
+      in: path
+      description: The id of the game instance
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example:
+        id:
+          value: ebd84548-b028-11ec-b909-0242ac120002
+          summary: A simple game ID example
+    assetId:
+      name: assetId
+      in: path
+      description: The id of the inventory asset
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example:
+        id:
+          value: ebd84548-b028-11ec-b909-0242ac120002
+          summary: A simple asset ID example
+    economyId:
+      name: economyId
+      in: path
+      description: The id of the economy instance
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example:
+        id:
+          value: ebd84548-b028-11ec-b909-0242ac120002
+          summary: A simple economy ID example
+    economyVersion:
+      name: economyVersion
+      in: path
+      description: The version of the economy instance
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example:
+        main:
+          value: main
+          summary: The initial default main version
+        draft:
+          value: draft-123
+          summary: A simple draft economy
+  securitySchemes:
+    name:
+      type: apiKey
+      name: api_key
+      in: query
+    name1:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://domain.test/api/oauth/dialog
+          tokenUrl: https://domain.test/api/oauth/token
+          scopes:
+            read: example read scope
+            write: example write scope
+    name2:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
