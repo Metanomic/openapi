@@ -1,0 +1,1502 @@
+{
+    "info": {
+        "_postman_id": "67c1a78b-02d8-447f-8a51-d37890827775",
+        "name": "Economy Engine API",
+        "description": "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints.\n\nContact Support:\n Name: Metanomic Engineering\n Email: engineering@metanomic.net",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "games",
+            "item": [
+                {
+                    "name": "Papameter {game Id}",
+                    "item": [
+                        {
+                            "name": "Game inventory",
+                            "item": [
+                                {
+                                    "name": "Retrieve The Game Inventory",
+                                    "id": "16945f8d-0fb2-4353-92a4-f426fefedc1e",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/inventory",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "inventory"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Retrieve The attached Game Inventory that the account has created for the given Game (`gameId`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "9d9e4292-9871-45a8-9d53-d51f91ea0ab9",
+                                            "name": "Get the attached inventory for the game",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/games/:gameId/inventory",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "games",
+                                                        ":gameId",
+                                                        "inventory"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "gameId",
+                                                            "value": "Ut deserunt elit",
+                                                            "description": "(Required) The id of the game instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n  \"id\": \"la\",\n  \"tags\": [\n    \"dolore\",\n    \"officia id nulla velit\"\n  ],\n  \"assets\": [\n    {\n      \"title\": \"occaecat eiusmod Ut\",\n      \"description\": \"ut elit minim enim\",\n      \"categories\": [\n        \"mollit anim ullamco\",\n        \"dolore mollit cillum des\"\n      ],\n      \"classification\": \"Duis quis\",\n      \"variables\": {},\n      \"assetType\": [\n        \"Modifier\",\n        \"Input\"\n      ],\n      \"inputs\": [\n        \"id do i\",\n        \"elit occaecat voluptate\"\n      ],\n      \"outputs\": [\n        \"aute laboris irure minim nostrud\",\n        \"dolore amet ipsum\"\n      ],\n      \"id\": \"ullamco nisi\",\n      \"tags\": [\n        \"in minim esse occaecat\",\n        \"ea veniam consequat cillum\"\n      ]\n    },\n    {\n      \"title\": \"nulla anim pariatur magna adipisicing\",\n      \"description\": \"n\",\n      \"categories\": [\n        \"qui\",\n        \"et Ut\"\n      ],\n      \"classification\": \"in magna labore sint\",\n      \"variables\": {},\n      \"assetType\": [\n        \"Modifier\",\n        \"Resource\"\n      ],\n      \"inputs\": [\n        \"deserunt sint id consequat\",\n        \"deserunt laboris laborum pa\"\n      ],\n      \"outputs\": [\n        \"sint deserunt ad\",\n        \"\"\n      ],\n      \"id\": \"sit non Lorem ut\",\n      \"tags\": [\n        \"Ut cupidatat\",\n        \"cupidatat Duis non\"\n      ]\n    }\n  ]\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Adds a Asset in the Inventory",
+                                    "id": "9688e449-cdcc-4d12-84c5-ebf83c087355",
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    },
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"cillum incididunt\",\n  \"description\": \"sit tempor magna consequat\",\n  \"categories\": [\n    \"Duis velit nulla\",\n    \"eiusmod ex \"\n  ],\n  \"classification\": \"dolore aliqua Duis proident\",\n  \"variables\": {},\n  \"assetType\": [\n    \"Item\",\n    \"Modifier\"\n  ],\n  \"inputs\": [\n    \"enim anim\",\n    \"consequat\"\n  ],\n  \"outputs\": [\n    \"exercitation in ullamco ad voluptate\",\n    \"qu\"\n  ]\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/inventory",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "inventory"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Adds a new Asset in the attached Inventory"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "b73ed301-02f6-4cd9-9c53-002f85451616",
+                                            "name": "Created",
+                                            "originalRequest": {
+                                                "method": "POST",
+                                                "header": [],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"title\": \"cillum incididunt\",\n  \"description\": \"sit tempor magna consequat\",\n  \"categories\": [\n    \"Duis velit nulla\",\n    \"eiusmod ex \"\n  ],\n  \"classification\": \"dolore aliqua Duis proident\",\n  \"variables\": {},\n  \"assetType\": [\n    \"Item\",\n    \"Modifier\"\n  ],\n  \"inputs\": [\n    \"enim anim\",\n    \"consequat\"\n  ],\n  \"outputs\": [\n    \"exercitation in ullamco ad voluptate\",\n    \"qu\"\n  ]\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/games/:gameId/inventory",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "games",
+                                                        ":gameId",
+                                                        "inventory"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "gameId",
+                                                            "value": "Ut deserunt elit",
+                                                            "description": "(Required) The id of the game instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "Created",
+                                            "code": 201,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n  \"id\": \"aute cillum\"\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Retrieve The Inventory asset",
+                                    "id": "cfa986ef-d428-4705-9906-cecedefc5977",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/inventory/:assetId",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "inventory",
+                                                ":assetId"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                },
+                                                {
+                                                    "key": "assetId",
+                                                    "value": "dolore quis non est reprehenderit",
+                                                    "description": "(Required) The id of the inventory asset"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Retrieve The Inventory asset (`assetId`) that the account has created for the given Game (`gameId`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "7e414d8e-b005-4275-99fc-07b0f7928f1b",
+                                            "name": "Get the asset from the attached inventory for the game",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/games/:gameId/inventory/:assetId",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "games",
+                                                        ":gameId",
+                                                        "inventory",
+                                                        ":assetId"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "gameId",
+                                                            "value": "Ut deserunt elit",
+                                                            "description": "(Required) The id of the game instance"
+                                                        },
+                                                        {
+                                                            "key": "assetId",
+                                                            "value": "dolore quis non est reprehenderit",
+                                                            "description": "(Required) The id of the inventory asset"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n  \"title\": \"in ullamco laborum elit\",\n  \"description\": \"ut ea mollit Ut dolor\",\n  \"categories\": [\n    \"sunt enim in ut\",\n    \"ullamco magna ad ex qui\"\n  ],\n  \"classification\": \"reprehenderit magna deserunt occaec\",\n  \"variables\": {},\n  \"assetType\": [\n    \"Input\",\n    \"Craft\"\n  ],\n  \"inputs\": [\n    \"consectetur\",\n    \"pariatur deserunt veniam\"\n  ],\n  \"outputs\": [\n    \"deserunt\",\n    \"enim in sint\"\n  ],\n  \"id\": \"quis in Duis aute\",\n  \"tags\": [\n    \"eiusmod\",\n    \"veniam mollit\"\n  ]\n}"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "a239e447-f39d-44f1-865c-6abdf2fd08fb",
+                            "description": "Game Inventory manages the assets that are associated with the game instance. Example of the Inventory Object:\n\n``` yaml\nInventory:\n    type: object\n    properties:\n        id:\n            $ref: \"#/components/schemas/ID\"\n        tags:\n            $ref: \"#/components/schemas/Tags\"\n        assets:\n            type: array\n            items:\n                $ref: \"#/components/schemas/Asset\"\nID:\n    type: string\n    description: The instance ID\n    example:\n        id:\n            value: \"ebd84548-b028-11ec-b909-0242ac120002\"\n            summary: A simple instance ID example, of Economy, module, Game etc..\nTags:\n    type: array\n    items:\n        $ref: \"#/components/schemas/Tag\"\nTag:\n    type: string\n    example:\n        tag:\n            value: \"drafting\"\n            summary: an example Tag\nAssetType:\n    type: string\n    enum:\n        - Resource # Atomic level of an input resource (eg Wooden Stick, herbs, or a coin)\n        - Item # eg a Sword; Unique, Rare or Supply Bounded\n        - Craft # eg a potion\n        - Input # Set of Resources, (Monsters/Entity??)\n        - Modifier # Player Stat, Stat that enriches craft\nAsset:\n    type: object\n    required:\n        - ID\n        - title\n        - description\n        - categories\n        - classification\n        - variables\n    properties:\n        ID:\n            type: string\n        title:\n            type: string\n        description:\n            type: string\n        assetType:\n            type: array\n            items:\n                $ref: \"#/components/schemas/AssetType\"\n        inputs:\n            type: array\n            items:\n                $ref: \"#/components/schemas/ID\"\n        outputs:\n            type: array\n            items:\n                $ref: \"#/components/schemas/ID\"\n        conditions: # Condition\n            type: array\n            items:\n                type: object\n        categories: # List, eg 1. Melee, 2. Sword\n            type: array\n            items:\n                type: string\n        classification: # String Type, eg is Weapon, is Potion\n            type: string\n        variables:\n            type: object\n\n```"
+                        },
+                        {
+                            "name": "Gets a Game setup by gameId",
+                            "id": "29d1d4ed-3c58-439a-b05e-1880596e47db",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games/:gameId",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games",
+                                        ":gameId"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "gameId",
+                                            "value": "Ut deserunt elit",
+                                            "description": "(Required) The id of the game instance"
+                                        }
+                                    ]
+                                },
+                                "description": "Gets a Game setup by `gameId`"
+                            },
+                            "response": [
+                                {
+                                    "id": "17fb905e-708b-4459-bf86-35adf0c8f5b6",
+                                    "name": "The Game Setup Object",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n  \"title\": \"quis in anim\",\n  \"description\": \"\",\n  \"genre\": [\n    \"Platformer\",\n    \"Survival\"\n  ],\n  \"elements\": [\n    \"P2E\",\n    \"Burning\"\n  ],\n  \"id\": \"est\",\n  \"tags\": [\n    \"in sit\",\n    \"officia\"\n  ]\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "List The ApiKeys",
+                            "id": "20a7d027-9047-4042-912a-0f7592e2f93b",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games/:gameId/apiKeys",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games",
+                                        ":gameId",
+                                        "apiKeys"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "gameId",
+                                            "value": "Ut deserunt elit",
+                                            "description": "(Required) The id of the game instance"
+                                        }
+                                    ]
+                                },
+                                "description": "List The ApiKeys that the account has created for the given Game (`gameId`)"
+                            },
+                            "response": [
+                                {
+                                    "id": "4bd51871-ac82-4bd1-8d5b-63adf8e2ecd5",
+                                    "name": "Get a list of api keys",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/apiKeys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "apiKeys"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "[]"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Retrieve The attached Economy state",
+                            "id": "5f432c68-99fb-4f98-9624-0e787ecdebb2",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games/:gameId/economy",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games",
+                                        ":gameId",
+                                        "economy"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "gameId",
+                                            "value": "Ut deserunt elit",
+                                            "description": "(Required) The id of the game instance"
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)"
+                            },
+                            "response": [
+                                {
+                                    "id": "008e67b3-4a41-4aba-9cc7-8fe067ac2fa6",
+                                    "name": "Get the attached economy state",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/economy",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "economy"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n  \"last_update\": -44726950.887495495,\n  \"executionStack\": \"amet\",\n  \"id\": \"eiusmod Lorem minim nulla consequat\"\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Submit an in-game Message Event",
+                            "id": "be5e90fa-a081-41b5-9334-4a9a05552820",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games/:gameId/events",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games",
+                                        ":gameId",
+                                        "events"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "gameId",
+                                            "value": "Ut deserunt elit",
+                                            "description": "(Required) The id of the game instance"
+                                        }
+                                    ]
+                                },
+                                "description": "Submit a Message Event to the economic balancing engine"
+                            },
+                            "response": [
+                                {
+                                    "id": "d435bcdd-9482-4ceb-a135-40f79ab32d6c",
+                                    "name": "200 response",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/events",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "events"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "text",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "text/plain"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": ""
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Retrieve Telemetry stats",
+                            "id": "39d54420-2a73-4d68-bec6-a4136575df63",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games/:gameId/telemetry",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games",
+                                        ":gameId",
+                                        "telemetry"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "gameId",
+                                            "value": "Ut deserunt elit",
+                                            "description": "(Required) The id of the game instance"
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve Telemetry stats for the given Game (`gameId`) and its attached economy and simulations"
+                            },
+                            "response": [
+                                {
+                                    "id": "61d3aa0f-d13a-41be-9382-07b5e04f3585",
+                                    "name": "200 response",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/games/:gameId/telemetry",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "games",
+                                                ":gameId",
+                                                "telemetry"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "gameId",
+                                                    "value": "Ut deserunt elit",
+                                                    "description": "(Required) The id of the game instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "text",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "text/plain"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "c92b2c1e-2749-4d1f-815b-4da2c62bedb7",
+                    "description": "`gameId` is the instance ID of the Game Object"
+                },
+                {
+                    "name": "List all Games",
+                    "id": "386c5944-c67e-4416-9185-8eda3e55b4e6",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/games",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "games"
+                            ]
+                        },
+                        "description": "List the Games that the account has created"
+                    },
+                    "response": [
+                        {
+                            "id": "783a36d8-e034-490b-b198-a843ea4570fa",
+                            "name": "Get a paginated list of games",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/games",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "[\n  {\n    \"title\": \"incididunt adipisicing exercitation sint\",\n    \"description\": \"ipsum qui consequat do\",\n    \"genre\": [\n      \"Platformer\",\n      \"Puzzlers\"\n    ],\n    \"elements\": [\n      \"Tokenomics\",\n      \"Tokenomics\"\n    ],\n    \"id\": \"in aliqua Duis\",\n    \"tags\": [\n      \"enim eiusmod in\",\n      \"aliquip laboris enim\"\n    ]\n  },\n  {\n    \"title\": \"in irure\",\n    \"description\": \"tempor ea deserunt\",\n    \"genre\": [\n      \"Sandbox\",\n      \"Real-time strategy (RTS)\"\n    ],\n    \"elements\": [\n      \"Leveling\",\n      \"Governance\"\n    ],\n    \"id\": \"minim\",\n    \"tags\": [\n      \"officia minim fugiat qui in\",\n      \"nisi consectetur eu sunt\"\n    ]\n  }\n]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Creates a new Game entry",
+                    "id": "fb198ffc-cfd1-4c68-b063-2f5d6cd6f0a0",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"consectetur proident\",\n  \"description\": \"amet sint ea deserunt est\",\n  \"genre\": [\n    \"Sandbox\",\n    \"RPG\"\n  ],\n  \"elements\": [\n    \"Blockchain\",\n    \"P2E\"\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/games",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "games"
+                            ]
+                        },
+                        "description": "Creates a new Game entry attached to the account"
+                    },
+                    "response": [
+                        {
+                            "id": "fe1a8d92-ea0b-48e1-86e2-2fab55aa798a",
+                            "name": "Created",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"consectetur proident\",\n  \"description\": \"amet sint ea deserunt est\",\n  \"genre\": [\n    \"Sandbox\",\n    \"RPG\"\n  ],\n  \"elements\": [\n    \"Blockchain\",\n    \"P2E\"\n  ]\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/games",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "games"
+                                    ]
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n  \"id\": \"aute cillum\"\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "c7b36e76-f59c-4dc6-8e67-365a5b927bdf",
+            "description": "Games is the API path that describes all the game-specific Entities and their functional units.\n\nA typical Game's Object:\n\n``` yaml\nGame:\n    type: object\n    required:\n        - ID\n        - title\n        - description\n        - genre\n        - elements\n    properties:\n        ID:\n            type: string\n        title:\n            type: string\n        description:\n            type: string\n        elements:\n            $ref: \"#/components/schemas/GameElements\"\n        genre:\n            $ref: \"#/components/schemas/GameGenres\"\nTags:\n    type: array\n    items:\n        $ref: \"#/components/schemas/Tag\"\nTag:\n    type: string\n    example:\n        tag:\n            value: \"drafting\"\n            summary: an example Tag\nGameElements:\n    type: array\n    items:\n        $ref: \"#/components/schemas/GameElement\"\nGameElement:\n    type: string\n    enum:\n        - NFTs\n        - Blockchain\n        - P2E\n        - P&E\n        - Governance\n        - Monetary\n        - Tokenomics\n        - Leveling\n        - Mapping\n        - Mining\n        - Burning\n        - Gathering\n        - Skining\n\nGameGenres:\n    type: array\n    items:\n        $ref: \"#/components/schemas/GameGenre\"\nGameGenre:\n    type: string\n    enum:\n        - Sandbox\n        - Real-time strategy (RTS)\n        - Shooters (FPS and TPS)\n        - Multiplayer online battle arena (MOBA)\n        - RPG\n        - Simulation\n        - Puzzlers\n        - Action-adventure\n        - Survival\n        - Platformer\n\n```"
+        },
+        {
+            "name": "Economies",
+            "item": [
+                {
+                    "name": "Parameter {economy Id}",
+                    "item": [
+                        {
+                            "name": "Parameter {economy Version}",
+                            "item": [
+                                {
+                                    "name": "Retrieve The Economy setup",
+                                    "id": "74a8e4a0-2cf0-427a-9819-d5e37687d926",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/economies/:economyId/:economyVersion",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "economies",
+                                                ":economyId",
+                                                ":economyVersion"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "economyId",
+                                                    "value": "laboris adipisicing minim consectetur",
+                                                    "description": "(Required) The id of the economy instance"
+                                                },
+                                                {
+                                                    "key": "economyVersion",
+                                                    "value": "laboris consequat irure est",
+                                                    "description": "(Required) The version of the economy instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "76ed0f3d-0557-4ab0-93f4-9fa44484e26c",
+                                            "name": "The Economy Setup Object",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/economies/:economyId/:economyVersion",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "economies",
+                                                        ":economyId",
+                                                        ":economyVersion"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "economyId",
+                                                            "value": "laboris adipisicing minim consectetur",
+                                                            "description": "(Required) The id of the economy instance"
+                                                        },
+                                                        {
+                                                            "key": "economyVersion",
+                                                            "value": "laboris consequat irure est",
+                                                            "description": "(Required) The version of the economy instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n  \"title\": \"nulla eiusmod cupidatat culpa\",\n  \"description\": \"voluptate Lorem non commodo\",\n  \"genre\": [\n    \"Simulation\",\n    \"Shooters (FPS and TPS)\"\n  ],\n  \"elements\": [\n    \"Tokenomics\",\n    \"Skining\"\n  ],\n  \"executionStack\": \"consectetur velit amet\",\n  \"version\": \"id eu nostrud Duis\",\n  \"id\": \"mollit\",\n  \"tags\": [\n    \"\",\n    \"mollit sunt dolor\"\n  ]\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "List The Economy Modules",
+                                    "id": "c12803f7-a36e-4884-9eaa-ff9f1c9f28a3",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/modules",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "economies",
+                                                ":economyId",
+                                                ":economyVersion",
+                                                "modules"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "economyId",
+                                                    "value": "laboris adipisicing minim consectetur",
+                                                    "description": "(Required) The id of the economy instance"
+                                                },
+                                                {
+                                                    "key": "economyVersion",
+                                                    "value": "laboris consequat irure est",
+                                                    "description": "(Required) The version of the economy instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "List The Economy Modules that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "f6c5469a-a5b1-4457-9668-1bd894ccbe81",
+                                            "name": "Get a paginated list of Modules",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/modules",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "economies",
+                                                        ":economyId",
+                                                        ":economyVersion",
+                                                        "modules"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "economyId",
+                                                            "value": "laboris adipisicing minim consectetur",
+                                                            "description": "(Required) The id of the economy instance"
+                                                        },
+                                                        {
+                                                            "key": "economyVersion",
+                                                            "value": "laboris consequat irure est",
+                                                            "description": "(Required) The version of the economy instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "[\n  {\n    \"title\": \"eiusmod deserunt sint\",\n    \"description\": \"proident\",\n    \"atomicType\": \"Const\",\n    \"executionStack\": \"dolore ipsum\",\n    \"id\": \"labore ut ut nisi\",\n    \"tags\": [\n      \"ipsum cupidatat\",\n      \"reprehenderit cillum\"\n    ]\n  },\n  {\n    \"title\": \"laborum\",\n    \"description\": \"incididunt quis\",\n    \"atomicType\": \"Probabilistic\",\n    \"executionStack\": \"quis dolor dolor ex Ut\",\n    \"id\": \"ve\",\n    \"tags\": [\n      \"irure ullamco in deserunt\",\n      \"n\"\n    ]\n  }\n]"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "List The Economy Simulation Profiles",
+                                    "id": "326b300b-18c1-4a4f-9a34-bef7437c0142",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/profiles",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "economies",
+                                                ":economyId",
+                                                ":economyVersion",
+                                                "profiles"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "economyId",
+                                                    "value": "laboris adipisicing minim consectetur",
+                                                    "description": "(Required) The id of the economy instance"
+                                                },
+                                                {
+                                                    "key": "economyVersion",
+                                                    "value": "laboris consequat irure est",
+                                                    "description": "(Required) The version of the economy instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "List The Economy Simulation Profiles that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "058c803b-61a5-4dd1-8b70-9b594fd407e8",
+                                            "name": "200 response",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/profiles",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "economies",
+                                                        ":economyId",
+                                                        ":economyVersion",
+                                                        "profiles"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "economyId",
+                                                            "value": "laboris adipisicing minim consectetur",
+                                                            "description": "(Required) The id of the economy instance"
+                                                        },
+                                                        {
+                                                            "key": "economyVersion",
+                                                            "value": "laboris consequat irure est",
+                                                            "description": "(Required) The version of the economy instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "text",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "text/plain"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "List The Economy Simulations",
+                                    "id": "67ca5bd2-f4ab-469b-91da-5b0d289e5084",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/simulations",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "economies",
+                                                ":economyId",
+                                                ":economyVersion",
+                                                "simulations"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "economyId",
+                                                    "value": "laboris adipisicing minim consectetur",
+                                                    "description": "(Required) The id of the economy instance"
+                                                },
+                                                {
+                                                    "key": "economyVersion",
+                                                    "value": "laboris consequat irure est",
+                                                    "description": "(Required) The version of the economy instance"
+                                                }
+                                            ]
+                                        },
+                                        "description": "List The Economy Simulations that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "f13c1934-b3d2-42d3-b797-4889ced63596",
+                                            "name": "200 response",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/economies/:economyId/:economyVersion/simulations",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "economies",
+                                                        ":economyId",
+                                                        ":economyVersion",
+                                                        "simulations"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "economyId",
+                                                            "value": "laboris adipisicing minim consectetur",
+                                                            "description": "(Required) The id of the economy instance"
+                                                        },
+                                                        {
+                                                            "key": "economyVersion",
+                                                            "value": "laboris consequat irure est",
+                                                            "description": "(Required) The version of the economy instance"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "text",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "text/plain"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": ""
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "90927bef-56e6-4eac-8fe8-f4997a94fcc2",
+                            "description": "The version of the economy"
+                        },
+                        {
+                            "name": "List The Economy versions",
+                            "id": "a3497089-ba51-4b34-8c23-936731b29b73",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/economies/:economyId",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "economies",
+                                        ":economyId"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "economyId",
+                                            "value": "laboris adipisicing minim consectetur",
+                                            "description": "(Required) The id of the economy instance"
+                                        }
+                                    ]
+                                },
+                                "description": "List The Economy versions setups given Economy (`economyId`)"
+                            },
+                            "response": [
+                                {
+                                    "id": "0e15c5c8-6a22-4d62-b311-06e682b20400",
+                                    "name": "Get a paginated list of Economies",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/economies/:economyId",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "economies",
+                                                ":economyId"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "economyId",
+                                                    "value": "laboris adipisicing minim consectetur",
+                                                    "description": "(Required) The id of the economy instance"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "[\n  {\n    \"title\": \"non velit ad dolore\",\n    \"description\": \"cupidatat magna nulla ut\",\n    \"genre\": [\n      \"Survival\",\n      \"RPG\"\n    ],\n    \"elements\": [\n      \"P&E\",\n      \"P&E\"\n    ],\n    \"executionStack\": \"nulla ex exercitation\",\n    \"version\": \"exercitation nisi dolore id\",\n    \"id\": \"i\",\n    \"tags\": [\n      \"nisi aliqu\",\n      \"nisi nostrud dolor eiusmod\"\n    ]\n  },\n  {\n    \"title\": \"tempor\",\n    \"description\": \"veniam\",\n    \"genre\": [\n      \"Real-time strategy (RTS)\",\n      \"Real-time strategy (RTS)\"\n    ],\n    \"elements\": [\n      \"Monetary\",\n      \"Gathering\"\n    ],\n    \"executionStack\": \"est sunt in cillum occaecat\",\n    \"version\": \"mollit do ex dolor in\",\n    \"id\": \"proident Duis voluptate\",\n    \"tags\": [\n      \"elit culpa non \",\n      \"irure commodo culpa\"\n    ]\n  }\n]"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "e77deeb6-5c12-4e88-8b5a-7bbfaa17a9ab",
+                    "description": "The instance ID of the economy setup"
+                },
+                {
+                    "name": "List The Economies",
+                    "id": "b70cf6ae-7dd9-4494-846c-4c188095ee92",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/economies",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "economies"
+                            ]
+                        },
+                        "description": "List The Economies that the account has created"
+                    },
+                    "response": [
+                        {
+                            "id": "e15e1128-288b-4d77-a738-308344b8c2ce",
+                            "name": "Get a paginated list of Economies",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/economies",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "economies"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "[\n  {\n    \"title\": \"non velit ad dolore\",\n    \"description\": \"cupidatat magna nulla ut\",\n    \"genre\": [\n      \"Survival\",\n      \"RPG\"\n    ],\n    \"elements\": [\n      \"P&E\",\n      \"P&E\"\n    ],\n    \"executionStack\": \"nulla ex exercitation\",\n    \"version\": \"exercitation nisi dolore id\",\n    \"id\": \"i\",\n    \"tags\": [\n      \"nisi aliqu\",\n      \"nisi nostrud dolor eiusmod\"\n    ]\n  },\n  {\n    \"title\": \"tempor\",\n    \"description\": \"veniam\",\n    \"genre\": [\n      \"Real-time strategy (RTS)\",\n      \"Real-time strategy (RTS)\"\n    ],\n    \"elements\": [\n      \"Monetary\",\n      \"Gathering\"\n    ],\n    \"executionStack\": \"est sunt in cillum occaecat\",\n    \"version\": \"mollit do ex dolor in\",\n    \"id\": \"proident Duis voluptate\",\n    \"tags\": [\n      \"elit culpa non \",\n      \"irure commodo culpa\"\n    ]\n  }\n]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Creates a new Economy entry",
+                    "id": "64fa8fe7-5234-4d95-bad0-24517a85535b",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"anim Duis enim\",\n  \"description\": \"amet laboris aliqua\",\n  \"genre\": [\n    \"Multiplayer online battle arena (MOBA)\",\n    \"Platformer\"\n  ],\n  \"elements\": [\n    \"Governance\",\n    \"Tokenomics\"\n  ],\n  \"executionStack\": \"nulla culpa fugiat reprehenderit ut\",\n  \"version\": \"officia pariatur\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/economies",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "economies"
+                            ]
+                        },
+                        "description": "Creates a new Economy entry attached to the account"
+                    },
+                    "response": [
+                        {
+                            "id": "8bb1c9e4-3d16-4116-816f-9518028fc9c7",
+                            "name": "Created",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"anim Duis enim\",\n  \"description\": \"amet laboris aliqua\",\n  \"genre\": [\n    \"Multiplayer online battle arena (MOBA)\",\n    \"Platformer\"\n  ],\n  \"elements\": [\n    \"Governance\",\n    \"Tokenomics\"\n  ],\n  \"executionStack\": \"nulla culpa fugiat reprehenderit ut\",\n  \"version\": \"officia pariatur\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/economies",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "economies"
+                                    ]
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n  \"id\": \"aute cillum\"\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "369ac4c8-ad43-48ba-ab2f-db6c39e089f4",
+            "description": "Economies define the functional setup that balances the economic state of the game. Example\n\n``` yaml\nEconomy:\n    type: object\n    required:\n        - ID\n        - title\n        - description\n        - genre\n        - elements\n        - executionStack\n    properties:\n        ID:\n            type: string\n        title:\n            type: string\n        description:\n            type: string\n        version:\n            type: string\n        elements:\n            $ref: \"#/components/schemas/GameElements\"\n        genre:\n            $ref: \"#/components/schemas/GameGenres\"\n        executionStack:\n            type: array\n            items:\n              $ref: \"#/components/schemas/ID\"\n\nTags:\n    type: array\n    items:\n        $ref: \"#/components/schemas/Tag\"\nTag:\n    type: string\n    example:\n        tag:\n            value: \"drafting\"\n            summary: an example Tag\nGameElements:\n    type: array\n    items:\n        $ref: \"#/components/schemas/GameElement\"\nGameElement:\n    type: string\n    enum:\n        - NFTs\n        - Blockchain\n        - P2E\n        - P&E\n        - Governance\n        - Monetary\n        - Tokenomics\n        - Leveling\n        - Mapping\n        - Mining\n        - Burning\n        - Gathering\n        - Skining\n\nGameGenres:\n    type: array\n    items:\n        $ref: \"#/components/schemas/GameGenre\"\nGameGenre:\n    type: string\n    enum:\n        - Sandbox\n        - Real-time strategy (RTS)\n        - Shooters (FPS and TPS)\n        - Multiplayer online battle arena (MOBA)\n        - RPG\n        - Simulation\n        - Puzzlers\n        - Action-adventure\n        - Survival\n        - Platformer\n\n```"
+        },
+        {
+            "name": "Modules",
+            "item": [
+                {
+                    "name": "List The Available Modules",
+                    "id": "d8d9d21b-f491-4131-8f98-3c8dea0cec97",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/modules",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "modules"
+                            ]
+                        },
+                        "description": "List The Available to use Economy modules for the current account"
+                    },
+                    "response": [
+                        {
+                            "id": "4b259a78-a6c2-4b81-904f-96cf883b7750",
+                            "name": "200 response",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/modules",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "modules"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "text",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json",
+                                    "enabled": true
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "[\n {\n  \"title\": \"ut id\",\n  \"description\": \"ips\",\n  \"atomicType\": \"Const\",\n  \"executionStack\": \"velit ea in magna\",\n  \"id\": \"in deserunt esse ullamco\",\n  \"tags\": [\n   \"qui nulla Dui\",\n   \"minim adipisic\",\n   \"ut do est\"\n  ]\n },\n {\n  \"title\": \"consectetur enim\",\n  \"description\": \"deserunt ut a\",\n  \"atomicType\": \"Time\",\n  \"executionStack\": \"est ut sed do\",\n  \"id\": \"aliqua ir\",\n  \"tags\": [\n   \"labore ipsum ex\",\n   \"qui elit anim ut eiusmod\",\n   \"sunt ut ullamco voluptate Duis\",\n   \"elit aliqua\",\n   \"in dolore\"\n  ]\n },\n {\n  \"title\": \"non\",\n  \"description\": \"eiusmod\",\n  \"atomicType\": \"Const\",\n  \"executionStack\": \"tempor consectetur eu mollit\",\n  \"id\": \"dolor Lorem nostrud ullamco\",\n  \"tags\": [\n   \"cillum\",\n   \"ut esse\",\n   \"e\",\n   \"ut sed reprehenderit\"\n  ]\n },\n {\n  \"title\": \"Ut\",\n  \"description\": \"sed\",\n  \"atomicType\": \"Time\",\n  \"executionStack\": \"dolor\",\n  \"id\": \"laboris eiusmod\",\n  \"tags\": [\n   \"laborum ut\",\n   \"non\",\n   \"Excepteur laborum\"\n  ]\n }\n]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrieve The attached Module",
+                    "id": "208ba2c7-e27b-498f-af29-d20672f2d911",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/modules/:moduleId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "modules",
+                                ":moduleId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "moduleId",
+                                    "value": "veniam",
+                                    "description": "(Required) The id of the Module instance"
+                                }
+                            ]
+                        },
+                        "description": "Retrieve The Module that the account has created for the given Game (`moduleId`)"
+                    },
+                    "response": [
+                        {
+                            "id": "19a13865-4ea1-4882-b476-57e46b9834ad",
+                            "name": "The Module Object",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/modules/:moduleId",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "modules",
+                                        ":moduleId"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "moduleId",
+                                            "value": "veniam",
+                                            "description": "(Required) The id of the Module instance"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n  \"title\": \"in sed dolor sunt do\",\n  \"description\": \"deserun\",\n  \"atomicType\": \"Const\",\n  \"executionStack\": \"qui sit laboris\",\n  \"id\": \"pariatur Lorem sint\",\n  \"tags\": [\n    \"exercitation\",\n    \"deserunt dolor eu esse\"\n  ]\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "2d7edd4c-4193-4d71-8712-e8d5b137d73e",
+            "description": "Modules are the functional units that describe the economy\n\n``` yaml\nModule:\n    type: object\n    required:\n        - ID\n        - title\n        - description\n        - atomicType\n        - executionStack\n    properties:\n        ID:\n            type: string\n        title:\n            type: string\n        description:\n            type: string\n        atomicType:\n            $ref: \"#/components/schemas/ModuleAtomicType\"\n        executionStack:\n            type: array\n            items:\n              $ref: \"#/components/schemas/ID\"\nTags:\n    type: array\n    items:\n        $ref: \"#/components/schemas/Tag\"\nTag:\n    type: string\n    example:\n        tag:\n            value: \"drafting\"\n            summary: an example Tag\nModuleAtomicType:\n    type: string\n    enum:\n        - DAG # Has an execution Stack\n        - Time # eg do that every 5hrs\n        - Conditional # if (input.s-rate>5) do \n        - Probabilistic # F(xyz)\n        - Set # Save input to State\n        - Const # Override the balance value\n        - Lambda # Actual script code\n        - Profile # Set of fixed inputs (player Profile)\n\n```"
+        },
+        {
+            "name": "List The Economy Templates",
+            "id": "ad76df9b-1455-463b-a2b2-b4e3b9102b73",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{baseUrl}}/templates",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "templates"
+                    ]
+                },
+                "description": "List The Economy Templates available for the current account"
+            },
+            "response": [
+                {
+                    "id": "5598e204-5401-40df-8ab2-219a9f63b26e",
+                    "name": "Get a paginated list of Economy Templates",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/templates",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "templates"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "[\n  {\n    \"title\": \"non velit ad dolore\",\n    \"description\": \"cupidatat magna nulla ut\",\n    \"genre\": [\n      \"Survival\",\n      \"RPG\"\n    ],\n    \"elements\": [\n      \"P&E\",\n      \"P&E\"\n    ],\n    \"executionStack\": \"nulla ex exercitation\",\n    \"version\": \"exercitation nisi dolore id\",\n    \"id\": \"i\",\n    \"tags\": [\n      \"nisi aliqu\",\n      \"nisi nostrud dolor eiusmod\"\n    ]\n  },\n  {\n    \"title\": \"tempor\",\n    \"description\": \"veniam\",\n    \"genre\": [\n      \"Real-time strategy (RTS)\",\n      \"Real-time strategy (RTS)\"\n    ],\n    \"elements\": [\n      \"Monetary\",\n      \"Gathering\"\n    ],\n    \"executionStack\": \"est sunt in cillum occaecat\",\n    \"version\": \"mollit do ex dolor in\",\n    \"id\": \"proident Duis voluptate\",\n    \"tags\": [\n      \"elit culpa non \",\n      \"irure commodo culpa\"\n    ]\n  }\n]"
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "id": "b13f1444-47a4-4325-a39b-4e597cbb3aad",
+            "key": "baseUrl",
+            "value": "https://sandbox.metanomic.cloud/v1",
+            "type": "string"
+        }
+    ]
+}
