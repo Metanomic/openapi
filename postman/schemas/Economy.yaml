@@ -319,6 +319,8 @@ paths:
     /modules/{moduleId}:
         get:
             operationId: getModule
+            parameters:
+                - $ref: "#/components/parameters/moduleId"
             summary: Retrieve The attached Module
             description: Retrieve The Module that the account has created for the given Game (`moduleId`)
             tags:
