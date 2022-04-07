@@ -732,6 +732,8 @@ components:
                 atomicType:
                     $ref: "#/components/schemas/ModuleAtomicType"
                 executionStack:
+                    type: array
+                    items:
                     $ref: "#/components/schemas/ID"
 
         NewEconomy:
