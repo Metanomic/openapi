@@ -754,6 +754,8 @@ components:
                 genre:
                     $ref: "#/components/schemas/GameGenres"
                 executionStack:
+                    type: array
+                    items:
                     $ref: "#/components/schemas/ID"
 
         State:
