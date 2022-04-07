@@ -83,14 +83,7 @@ paths:
                             $ref: '#/components/schemas/NewGame'
             responses:
                 '201':
-                    description: Created
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        $ref: '#/components/schemas/ID'
+                    $ref: '#/components/responses/Created'
                     links:
                         GetGameByGameId:
                             operationId: getGame
@@ -173,6 +166,13 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/GameEconomyState'
+                    links:
+                        GetEconomyByEconomyIDAndVersion:
+                            operationId: getEconomyVersion
+                            parameters:
+                                economyId:
+                                economyVersion:
+                            description: Retrieve The attached Economy setup
     /games/{gameId}/inventory:
         get:
             operationId: getGameInventory
@@ -210,14 +210,7 @@ paths:
                             $ref: '#/components/schemas/NewAsset'
             responses:
                 '201':
-                    description: Created
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        $ref: '#/components/schemas/ID'
+                    $ref: '#/components/responses/Created'
                     links:
                         GetGameInventoryByGameID:
                             operationId: getGameInventory
@@ -289,13 +282,45 @@ paths:
               - economies
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a paginated list of Economies
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Economy'
+        post:
+            summary: Creates a new Economy entry
+            description: Creates a new Economy entry attached to the account
+            tags:
+              - economies
+            operationId: createEconomy
+            requestBody:
+                required: true
+                description: A JSON object with the Economy attributes
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/NewEconomy'
+            responses:
+                '201':
+                    $ref: '#/components/responses/Created'
     /modules:
         get:
             operationId: listModules
             summary: List The Available Modules
             description: List The Available to use Economy modules for the current account
+            tags:
+              - modules
+            responses:
+                "200":
+                    description: |-
+                        200 response
+    /modules/{moduleId}:
+        get:
+            operationId: getModule
+            summary: Retrieve The attached Module
+            description: Retrieve The Module that the account has created for the given Game (`moduleId`)
             tags:
               - modules
             responses:
@@ -325,8 +350,22 @@ paths:
               - economies
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a paginated list of Economies
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Economy'
+                    links:
+                        GetEconomyByEconomyIdAndEconomyVersion:
+                            operationId: getEconomyVersion
+                            parameters:
+                                economyId: '$request.path.economyId'
+                                economyVersion: '$response.body#/version'
+                            description: >
+                                The `economyId` is used from the request
+                                the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.
     /economies/{economyId}/{economyVersion}:
         get:
             operationId: getEconomyVersion
@@ -339,8 +378,33 @@ paths:
               - economies
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: The Economy Setup Object
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Economy'
+                    links:
+                        GetEconomyModulesByEconomyId:
+                            operationId: listEconomyModules
+                            parameters:
+                                economyId: '$request.path.economyId'
+                                economyVersion: '$request.path.economyVersion'
+                            description: >
+                                The `economyId` and `economyVersion` are used from the requested parameters.
+                        GetEconomyProfilesByEconomyId:
+                            operationId: listEconomyProfiles
+                            parameters:
+                                economyId: '$request.path.economyId'
+                                economyVersion: '$request.path.economyVersion'
+                            description: >
+                                The `economyId` and `economyVersion` are used from the requested parameters.
+                        GetEconomySimulationsByEconomyId:
+                            operationId: listEconomySimulations
+                            parameters:
+                                economyId: '$request.path.economyId'
+                                economyVersion: '$request.path.economyVersion'
+                            description: >
+                                The `economyId` and `economyVersion` are used from the requested parameters.
     /economies/{economyId}/{economyVersion}/modules:
         get:
             operationId: listEconomyModules
@@ -354,8 +418,22 @@ paths:
               - modules
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a paginated list of Modules
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Module'
+                    links:
+                        GetModuleByModuleId:
+                            operationId: getEconomyVersion
+                            parameters:
+                                economyId: '$request.path.economyId'
+                                economyVersion: '$request.path.economyVersion'
+                            description: >
+                                The `economyId` is used from the request
+                                the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.
     /economies/{economyId}/{economyVersion}/profiles:
         get:
             operationId: listEconomyProfiles
@@ -455,6 +533,17 @@ components:
                 draft:
                     value: "draft-123"
                     summary: A simple draft economy
+        moduleId:
+            in: path
+            name: moduleId
+            required: true
+            schema:
+                type: string
+            description: The id of the Module instance
+            example:
+                id:
+                    value: "ebd84548-b028-11ec-b909-0242ac120002"
+                    summary: A simple Module ID example
     schemas:
         Game:
             allOf:
@@ -643,6 +732,8 @@ components:
                     type: string
                 description:
                     type: string
+                version:
+                    type: string
                 elements:
                     $ref: "#/components/schemas/GameElements"
                 genre:
@@ -719,10 +810,47 @@ components:
                 - Spread
                 - Traffic
                 - Supply
+                - Craft
                 - Spawn
                 - Gathering
                 - Wallet
                 - Resistance
+                - Gear
+                - Reward
+                - Currency
+                - AppStart
+                - AppRunning
+                - DeviceInfo
+                - AppStop
+                - AppUpdate
+                - AppInstall
+                - NewInstall
+                - NewUser
+                - NewPlayer
+                - NewItem
+                - NewCategory
+                - NewClass
+                - DDNADontTrack
+                - ClientDevice
+                - GameStarted
+                - GameEnded
+                - GameRunning
+                - LevelStart
+                - LevelComplete
+                - LevelFail
+                - LevelQuit
+                - LevelSkip
+                - LevelUp
+                - StoreOpened
+                - StoreItemClick
+                - ItemAcquired
+                - ItemSpent
+                - DailyActiveUsers
+                - MonthlyActiveUsers
+                - TotalSessions
+                - SessionsPerUser
+                - TimeSpentInApp
+                - Debug
                 - Custom
         NewEvent:
             type: object
@@ -732,9 +860,35 @@ components:
             properties:
                 eventType:
                     $ref: "#/components/schemas/EventType"
+                userID:
+                    $ref: "#/components/schemas/ID"
+                installationID:
+                    $ref: "#/components/schemas/ID"
+                playerID:
+                    $ref: "#/components/schemas/ID"
+                sessionID:
+                    $ref: "#/components/schemas/ID"
+                source:
+                    type: string
+                environment:
+                    type: string
+                version:
+                    type: string
+                method:
+                    type: string
+                locale:
+                    type: string
+                platform:
+                    type: string
+                clientDevice:
+                    type: string
+                userCountry:
+                    type: string
+                timestamp:
+                    type: integer
+                    format: int64
                 value:
                     type: object
-
 
         Error:
             type: object
@@ -753,17 +907,21 @@ components:
                 property:
                     type: integer
     responses:
-        name:
-            description: ""
+        Created:
+            description: Created
             content:
                 application/json:
-                    schema: {}
+                    schema:
+                        type: object
+                        properties:
+                            id:
+                                $ref: '#/components/schemas/ID'
     securitySchemes:
-        name:
+        apiKey:
             type: apiKey
             name: api_key
             in: query
-        name1:
+        oauth2:
             type: oauth2
             flows:
                 authorizationCode:
@@ -772,7 +930,7 @@ components:
                     scopes:
                         read: example read scope
                         write: example write scope
-        name2:
+        JWT:
             type: http
             scheme: bearer
             bearerFormat: JWT
