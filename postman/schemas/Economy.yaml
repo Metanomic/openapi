@@ -325,8 +325,11 @@ paths:
               - modules
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: The Module Object
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Module'
     /templates:
         get:
             operationId: listTemplates
@@ -337,8 +340,13 @@ paths:
               - templates
             responses:
                 "200":
-                    description: |-
-                        200 response
+                    description: Get a paginated list of Economy Templates
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Economy'
     /economies/{economyId}:
         get:
             operationId: listEconomyVersions
