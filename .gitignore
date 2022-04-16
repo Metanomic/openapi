@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 .idea
+_build/index.html
 _build/openapi.yaml
 _build/openapi
 _build/contracts
