@@ -131,6 +131,7 @@ dmypy.json
 .idea
 _build/index.html
 _build/openapi.yaml
+_build/spec.json
 _build/openapi
 _build/contracts
 node_modules
