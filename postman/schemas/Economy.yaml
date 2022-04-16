@@ -734,7 +734,7 @@ components:
                 executionStack:
                     type: array
                     items:
-                    $ref: "#/components/schemas/ID"
+                        $ref: "#/components/schemas/ID"
 
         NewEconomy:
             type: object
@@ -758,7 +758,7 @@ components:
                 executionStack:
                     type: array
                     items:
-                    $ref: "#/components/schemas/ID"
+                        $ref: "#/components/schemas/ID"
 
         State:
             type: object
@@ -767,7 +767,9 @@ components:
                 last_update:
                     type: number
                 executionStack:
-                    $ref: "#/components/schemas/ID"
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/ID"
                 assets:
                     type: array
                     items: {}
