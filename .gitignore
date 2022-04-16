@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.idea
+_build/openapi.yaml
+_build/openapi
+_build/contracts
+node_modules

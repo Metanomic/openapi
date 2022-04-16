@@ -1,0 +1,23 @@
+get:
+    operationId: getGameEconomyState
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Retrieve The attached Economy state
+    description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+    tags:
+      - games
+      - economies
+    responses:
+        "200":
+            description: Get the attached economy state
+            content:
+                application/json:
+                    schema:
+                        $ref: '../schemas/GameEconomyState.yaml'
+            links:
+                GetEconomyByEconomyIDAndVersion:
+                    operationId: getEconomyVersion
+                    parameters:
+                        economyId:
+                        economyVersion:
+                    description: Retrieve The attached Economy setup

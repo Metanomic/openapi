@@ -1,0 +1,26 @@
+get:
+    operationId: listEconomyVersions
+    parameters:
+        - $ref: "../parameters/economyId.yaml"
+    summary: List The Economy versions
+    description: List The Economy versions setups given Economy (`economyId`)
+    tags:
+      - economies
+    responses:
+        "200":
+            description: Get a paginated list of Economies
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '../schemas/Economy.yaml'
+            links:
+                GetEconomyByEconomyIdAndEconomyVersion:
+                    operationId: getEconomyVersion
+                    parameters:
+                        economyId: '$request.path.economyId'
+                        economyVersion: '$response.body#/version'
+                    description: >
+                        The `economyId` is used from the request
+                        the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.

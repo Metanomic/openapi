@@ -1,0 +1,15 @@
+type: object
+required:
+    - title
+    - description
+    - genre
+    - elements
+properties:
+    title:
+        type: string
+    description:
+        type: string
+    elements:
+        $ref: "./GameElements.yaml"
+    genre:
+        $ref: "./GameGenres.yaml"

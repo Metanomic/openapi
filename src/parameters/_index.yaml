@@ -1,0 +1,10 @@
+assetId:
+    $ref: 'assetId.yaml'
+economyId:
+    $ref: 'economyId.yaml'
+economyVersion:
+    $ref: 'economyVersion.yaml'
+gameId:
+    $ref: 'gameId.yaml'
+moduleId:
+    $ref: 'moduleId.yaml'

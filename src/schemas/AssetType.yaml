@@ -1,0 +1,7 @@
+type: string
+enum:
+    - Resource # Atomic level of an input resource (eg Wooden Stick, herbs, or a coin)
+    - Item # eg a Sword; Unique, Rare or Supply Bounded
+    - Craft # eg a potion
+    - Input # Set of Resources, (Monsters/Entity??)
+    - Modifier # Player Stat, Stat that enriches craft

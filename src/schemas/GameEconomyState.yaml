@@ -1,0 +1,6 @@
+allOf:
+    - $ref: "./State.yaml"
+    - type: object
+      properties:
+        id:
+            $ref: "./ID.yaml"

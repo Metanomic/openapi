@@ -1,0 +1,12 @@
+type: string
+enum:
+    - Sandbox
+    - Real-time strategy (RTS)
+    - Shooters (FPS and TPS)
+    - Multiplayer online battle arena (MOBA)
+    - RPG
+    - Simulation
+    - Puzzlers
+    - Action-adventure
+    - Survival
+    - Platformer

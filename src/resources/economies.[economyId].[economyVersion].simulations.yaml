@@ -1,0 +1,14 @@
+get:
+    operationId: listEconomySimulations
+    parameters:
+        - $ref: "../parameters/economyId.yaml"
+        - $ref: "../parameters/economyVersion.yaml"
+    summary: List The Economy Simulations
+    description: List The Economy Simulations that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+    tags:
+      - economies
+      - simulation
+    responses:
+        "200":
+            description: |-
+                200 response

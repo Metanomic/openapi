@@ -1,0 +1,10 @@
+type: string
+enum:
+    - DAG # Has an execution Stack
+    - Time # eg do that every 5hrs
+    - Conditional # if (input.s-rate>5) do 
+    - Probabilistic # F(xyz)
+    - Set # Save input to State
+    - Const # Override the balance value
+    - Lambda # Actual script code
+    - Profile # Set of fixed inputs (player Profile)

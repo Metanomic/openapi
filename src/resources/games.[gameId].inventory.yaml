@@ -1,0 +1,56 @@
+get:
+    operationId: getGameInventory
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Retrieve The Game Inventory
+    description: Retrieve The attached Game Inventory that the account has created for the given Game (`gameId`)
+    tags:
+      - games
+      - economies
+      - inventory
+    responses:
+        "200":
+            description: Get the attached inventory for the game
+            content:
+                application/json:
+                    schema:
+                        $ref: '../schemas/Inventory.yaml'
+post:
+    operationId: addAssetToInventory
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Adds a Asset in the Inventory
+    description: Adds a new Asset in the attached Inventory
+    tags:
+      - games
+      - economies
+      - inventory
+    requestBody:
+        required: true
+        description: A JSON object with the asset attributes
+        content:
+            application/json:
+                schema:
+                    $ref: '../schemas/NewAsset.yaml'
+    responses:
+        '201':
+            description: Created
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            id:
+                                $ref: '../schemas/ID.yaml'
+            links:
+                GetGameInventoryByGameID:
+                    operationId: getGameInventory
+                    parameters:
+                        gameId: '$request.path.gameId'
+                    description: Retrive the attached Game inventory
+                GetGameInventoryAssetByGameIDAndAssetID:
+                    operationId: getGameInventoryAsset
+                    parameters:
+                        gameId: '$request.path.gameId'
+                        assetId: '$response.body#/id'
+                    description: Retrive the created asset from the attached Game inventory

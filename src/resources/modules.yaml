@@ -1,0 +1,15 @@
+get:
+    operationId: listModules
+    summary: List The Available Modules
+    description: List The Available to use Economy modules for the current account
+    tags:
+      - modules
+    responses:
+        "200":
+            description: Get a paginated list of Economy Modules
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '../schemas/Module.yaml'

@@ -1,0 +1,50 @@
+ID:
+    $ref: "./ID.yaml"
+Error:
+    $ref: "./Error.yaml"
+Game:
+    $ref: "./Game.yaml"
+Economy:
+    $ref: "./Economy.yaml"
+GameEconomyState:
+    $ref: "./GameEconomyState.yaml"
+Module:
+    $ref: "./Module.yaml"
+Asset:
+    $ref: "./Asset.yaml"
+Inventory:
+    $ref: "./Inventory.yaml"
+Event:
+    $ref: "./Event.yaml"
+Tags:
+    $ref: "./Tags.yaml"
+Tag:
+    $ref: "./Tag.yaml"
+GameElements:
+    $ref: "./GameElements.yaml"
+GameElement:
+    $ref: "./GameElement.yaml"
+GameGenres:
+    $ref: "./GameGenres.yaml"
+GameGenre:
+    $ref: "./GameGenre.yaml"
+NewGame:
+    $ref: "./NewGame.yaml"
+ModuleAtomicType:
+    $ref: "./ModuleAtomicType.yaml"
+NewModule:
+    $ref: "./NewModule.yaml"
+NewEconomy:
+    $ref: "./NewEconomy.yaml"
+State:
+    $ref: "./State.yaml"
+AssetType:
+    $ref: "./AssetType.yaml"
+NewAsset:
+    $ref: "./NewAsset.yaml"
+EventType:
+    $ref: "./EventType.yaml"
+NewEvent:
+    $ref: "./NewEvent.yaml"
+Name:
+    $ref: "./Name.yaml"

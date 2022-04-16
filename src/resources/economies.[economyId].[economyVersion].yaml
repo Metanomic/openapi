@@ -1,0 +1,38 @@
+get:
+    operationId: getEconomyVersion
+    parameters:
+        - $ref: "../parameters/economyId.yaml"
+        - $ref: "../parameters/economyVersion.yaml"
+    summary: Retrieve The Economy setup
+    description: Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)
+    tags:
+      - economies
+    responses:
+        "200":
+            description: The Economy Setup Object
+            content:
+                application/json:
+                    schema:
+                        $ref: '../schemas/Economy.yaml'
+            links:
+                GetEconomyModulesByEconomyId:
+                    operationId: listEconomyModules
+                    parameters:
+                        economyId: '$request.path.economyId'
+                        economyVersion: '$request.path.economyVersion'
+                    description: >
+                        The `economyId` and `economyVersion` are used from the requested parameters.
+                GetEconomyProfilesByEconomyId:
+                    operationId: listEconomyProfiles
+                    parameters:
+                        economyId: '$request.path.economyId'
+                        economyVersion: '$request.path.economyVersion'
+                    description: >
+                        The `economyId` and `economyVersion` are used from the requested parameters.
+                GetEconomySimulationsByEconomyId:
+                    operationId: listEconomySimulations
+                    parameters:
+                        economyId: '$request.path.economyId'
+                        economyVersion: '$request.path.economyVersion'
+                    description: >
+                        The `economyId` and `economyVersion` are used from the requested parameters.

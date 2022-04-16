@@ -1,0 +1,22 @@
+type: object
+required:
+    - title
+    - description
+    - genre
+    - elements
+    - executionStack
+properties:
+    title:
+        type: string
+    description:
+        type: string
+    version:
+        type: string
+    elements:
+        $ref: "./GameElements.yaml"
+    genre:
+        $ref: "./GameGenres.yaml"
+    executionStack:
+        type: array
+        items:
+            $ref: "./ID.yaml"

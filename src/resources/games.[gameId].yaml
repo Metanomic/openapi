@@ -1,0 +1,38 @@
+get:
+    operationId: getGame
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Gets a Game setup by gameId
+    description: Gets a Game setup by `gameId`
+    tags:
+      - games
+    responses:
+        "200":
+            description: The Game Setup Object
+            content:
+                application/json:
+                    schema:
+                        $ref: '../schemas/Game.yaml'
+            links:
+                GetGameByGameId:
+                    operationId: getGame
+                    parameters:
+                        gameId: '$request.path.gameId'
+                    description: >
+                        The `id` value returned in the response can be used as
+                        the `gameId` parameter in `GET /games/{gameId}`.
+                GetGameEconomyByGameID:
+                    operationId: getGameEconomyState
+                    parameters:
+                        gameId: '$request.path.gameId'
+                    description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+                GetGameAPIKeysByGameID:
+                    operationId: listApiKeys
+                    parameters:
+                        gameId: '$request.path.gameId'
+                    description: Retrive the list of the API Keys
+                GetGameInventoryByGameID:
+                    operationId: getGameInventory
+                    parameters:
+                        gameId: '$request.path.gameId'
+                    description: Retrive the attached Game inventory

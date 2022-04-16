@@ -1,0 +1,15 @@
+type: object
+additionalProperties: true
+properties:
+    last_update:
+        type: number
+    executionStack:
+        type: array
+        items:
+            $ref: "./ID.yaml"
+    assets:
+        type: array
+        items: {}
+    values:
+        type: array
+        items: {}

@@ -1,0 +1,36 @@
+type: object
+required:
+    - eventType
+    - value
+properties:
+    eventType:
+        $ref: "./EventType.yaml"
+    userID:
+        $ref: "./ID.yaml"
+    installationID:
+        $ref: "./ID.yaml"
+    playerID:
+        $ref: "./ID.yaml"
+    sessionID:
+        $ref: "./ID.yaml"
+    source:
+        type: string
+    environment:
+        type: string
+    version:
+        type: string
+    method:
+        type: string
+    locale:
+        type: string
+    platform:
+        type: string
+    clientDevice:
+        type: string
+    userCountry:
+        type: string
+    timestamp:
+        type: integer
+        format: int64
+    value:
+        type: object

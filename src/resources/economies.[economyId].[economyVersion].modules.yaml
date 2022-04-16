@@ -1,0 +1,28 @@
+get:
+    operationId: listEconomyModules
+    parameters:
+        - $ref: "../parameters/economyId.yaml"
+        - $ref: "../parameters/economyVersion.yaml"
+    summary: List The Economy Modules
+    description: List The Economy Modules that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+    tags:
+      - economies
+      - modules
+    responses:
+        "200":
+            description: Get a paginated list of Modules
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '../schemas/Module.yaml'
+            links:
+                GetModuleByModuleId:
+                    operationId: getEconomyVersion
+                    parameters:
+                        economyId: '$request.path.economyId'
+                        economyVersion: '$request.path.economyVersion'
+                    description: >
+                        The `economyId` is used from the request
+                        the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.

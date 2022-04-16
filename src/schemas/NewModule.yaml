@@ -1,0 +1,17 @@
+type: object
+required:
+    - title
+    - description
+    - atomicType
+    - executionStack
+properties:
+    title:
+        type: string
+    description:
+        type: string
+    atomicType:
+        $ref: "./ModuleAtomicType.yaml"
+    executionStack:
+        type: array
+        items:
+            $ref: "./ID.yaml"

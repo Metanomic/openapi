@@ -1,0 +1,7 @@
+in: path
+name: economyVersion
+required: true
+schema:
+    type: string
+description: The version of the economy instance
+example: "draft-123"

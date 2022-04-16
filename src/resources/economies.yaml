@@ -1,0 +1,31 @@
+get:
+    operationId: listEconomies
+    summary: List The Economies
+    description: List The Economies that the account has created
+    tags:
+      - economies
+    responses:
+        "200":
+            description: Get a paginated list of Economies
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '../schemas/Economy.yaml'
+post:
+    summary: Creates a new Economy entry
+    description: Creates a new Economy entry attached to the account
+    tags:
+      - economies
+    operationId: createEconomy
+    requestBody:
+        required: true
+        description: A JSON object with the Economy attributes
+        content:
+            application/json:
+                schema:
+                    $ref: '../schemas/NewEconomy.yaml'
+    responses:
+        '201':
+            $ref: '../responses/Created.yaml'

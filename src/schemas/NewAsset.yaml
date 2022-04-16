@@ -1,0 +1,36 @@
+type: object
+required:
+    - title
+    - description
+    - categories
+    - classification
+    - variables
+properties:
+    title:
+        type: string
+    description:
+        type: string
+    assetType:
+        type: array
+        items:
+            $ref: "./AssetType.yaml"
+    inputs:
+        type: array
+        items:
+            $ref: "./ID.yaml"
+    outputs:
+        type: array
+        items:
+            $ref: "./ID.yaml"
+    conditions: # Condition<F: module, Event>
+        type: array
+        items:
+            type: object
+    categories: # List<String>, eg 1. Melee, 2. Sword
+        type: array
+        items:
+            type: string
+    classification: # String Type, eg is Weapon, is Potion
+        type: string
+    variables:
+        type: object

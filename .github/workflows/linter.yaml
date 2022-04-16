@@ -1,0 +1,19 @@
+name: Run OpenAPI linter
+
+on:  
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Run Spectral
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: stoplightio/spectral-action@v0.8.1
+        with:
+          file_glob: 'openapi.yaml'

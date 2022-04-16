@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+    title: "Metanomic Economy Engine"
+    version: 1.0.0
+    description: "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints."
+    termsOfService: "http://metanomic.net/terms/"
+    contact:
+        name: Metanomic Engineering
+        url: http://metanomic.net/support
+        email: "engineering@metanomic.net"
+servers:
+    - url: https://sandbox.metanomic.cloud/v1
+tags:
+    - name: "games"
+      description: "Everything about your games"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/games"
+    - name: "economies"
+      description: "Everything about your economies"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/economies"
+    - name: "inventory"
+      description: "Everything about your inventory"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/inventory"
+    - name: "simulation"
+      description: "Everything about your simulation"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/simulation"
+    - name: "modules"
+      description: "Everything about your modules"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/modules"
+    - name: "analytics"
+      description: "Everything about your analytics"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/analytics"
+    - name: "templates"
+      description: "Everything about your templates"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/templates"
+    - name: "events"
+      description: "Everything about your events"
+      externalDocs:
+          description: "Find out more"
+          url: "http://docs.metanomic.net/events"
+paths:
+    /games:
+        $ref: "./resources/games.yaml"
+    /games/{gameId}:
+        $ref: "./resources/games.[gameId].yaml"
+    /games/{gameId}/apiKeys:
+        $ref: "./resources/games.[gameId].apiKeys.yaml"
+    /games/{gameId}/economy:
+        $ref: "./resources/games.[gameId].economy.yaml"
+    /games/{gameId}/inventory:
+        $ref: "./resources/games.[gameId].inventory.yaml"
+    /games/{gameId}/inventory/{assetId}:
+        $ref: "./resources/games.[gameId].inventory.[assetId].yaml"
+    /games/{gameId}/events:
+        $ref: "./resources/games.[gameId].events.yaml"
+    /games/{gameId}/telemetry:
+        $ref: "./resources/games.[gameId].telemetry.yaml"
+    /economies:
+        $ref: "./resources/economies.yaml"
+    /economies/{economyId}:
+        $ref: "./resources/economies.[economyId].yaml"
+    /economies/{economyId}/{economyVersion}:
+        $ref: "./resources/economies.[economyId].[economyVersion].yaml"
+    /economies/{economyId}/{economyVersion}/modules:
+        $ref: "./resources/economies.[economyId].[economyVersion].modules.yaml"
+    /economies/{economyId}/{economyVersion}/profiles:
+        $ref: "./resources/economies.[economyId].[economyVersion].profiles.yaml"
+    /economies/{economyId}/{economyVersion}/simulations:
+        $ref: "./resources/economies.[economyId].[economyVersion].simulations.yaml"
+    /modules:
+        $ref: "./resources/modules.yaml"
+    /modules/{moduleId}:
+        $ref: "./resources/modules.[moduleId].yaml"
+    /templates:
+        $ref: "./resources/templates.yaml"
+
+components:
+    parameters:
+        $ref: "./parameters/_index.yaml"
+    schemas:
+        $ref: "./schemas/_index.yaml"
+    responses:
+        $ref: "./responses/_index.yaml"
+    securitySchemes:
+        apiKey:
+            type: apiKey
+            name: api_key
+            in: query
+        oauth2:
+            type: oauth2
+            flows:
+                authorizationCode:
+                    authorizationUrl: https://domain.test/api/oauth/dialog
+                    tokenUrl: https://domain.test/api/oauth/token
+                    scopes:
+                        read: example read scope
+                        write: example write scope
+        JWT:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT

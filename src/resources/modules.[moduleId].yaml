@@ -1,0 +1,15 @@
+get:
+    operationId: getModule
+    parameters:
+        - $ref: "../parameters/moduleId.yaml"
+    summary: Retrieve The attached Module
+    description: Retrieve The Module that the account has created for the given Game (`moduleId`)
+    tags:
+      - modules
+    responses:
+        "200":
+            description: The Module Object
+            content:
+                application/json:
+                    schema:
+                        $ref: '../schemas/Module.yaml'

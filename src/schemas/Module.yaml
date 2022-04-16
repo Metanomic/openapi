@@ -1,0 +1,8 @@
+allOf:
+    - $ref: "./NewModule.yaml"
+    - type: object
+      properties:
+        id:
+            $ref: "./ID.yaml"
+        tags:
+            $ref: "./Tags.yaml"

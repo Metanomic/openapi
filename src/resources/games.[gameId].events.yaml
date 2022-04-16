@@ -1,0 +1,14 @@
+post:
+    operationId: submitGameEvent
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Submit an in-game Message Event
+    description: Submit a Message Event to the economic balancing engine
+    tags:
+      - games
+      - economies
+      - events
+    responses:
+        "200":
+            description: |-
+                200 response

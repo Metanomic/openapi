@@ -1,0 +1,46 @@
+get:
+    operationId: listGames
+    summary: List all Games
+    description: List the Games that the account has created
+    tags:
+        - games
+    responses:
+        "200":
+            description: Get a paginated list of games
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '../schemas/Game.yaml'
+post:
+    summary: Creates a new Game entry
+    description: Creates a new Game entry attached to the account
+    tags:
+        - games
+    operationId: createGame
+    requestBody:
+        required: true
+        description: A JSON object with the game attributes
+        content:
+            application/json:
+                schema:
+                    $ref: '../schemas/NewGame.yaml'
+    responses:
+        '201':
+            description: Created
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            id:
+                                $ref: '../schemas/ID.yaml'
+            links:
+                GetGameByGameId:
+                    operationId: getGame
+                    parameters:
+                        gameId: '$response.body#/id'
+                    description: >
+                        The `id` value returned in the response can be used as
+                        the `gameId` parameter in `GET /games/{gameId}`.

@@ -1,0 +1,17 @@
+get:
+    operationId: listApiKeys
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: List The ApiKeys
+    description: List The ApiKeys that the account has created for the given Game (`gameId`)
+    tags:
+      - games
+    responses:
+        "200":
+            description: Get a list of api keys
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            type: object

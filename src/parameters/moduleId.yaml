@@ -1,0 +1,7 @@
+in: path
+name: moduleId
+required: true
+schema:
+    type: string
+description: The id of the Module instance
+example: "ebd84548-b028-11ec-b909-0242ac120002"

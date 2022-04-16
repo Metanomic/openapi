@@ -1,0 +1,6 @@
+UnexpectedError:
+  $ref: "./UnexpectedError.yaml"
+NullResponse:
+  $ref: "./NullResponse.yaml"
+Created:
+  $ref: "./Created.yaml"

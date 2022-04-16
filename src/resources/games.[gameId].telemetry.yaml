@@ -1,0 +1,15 @@
+get:
+    operationId: getTelemetryStats
+    parameters:
+        - $ref: "../parameters/gameId.yaml"
+    summary: Retrieve Telemetry stats
+    description: Retrieve Telemetry stats for the given Game (`gameId`) and its attached economy and simulations
+    tags:
+      - games
+      - economies
+      - events
+      - analytics
+    responses:
+        "200":
+            description: |-
+                200 response

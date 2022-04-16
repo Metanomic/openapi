@@ -1,0 +1,33 @@
+{
+    "name": "metanomic-openapi",
+    "version": "0.1.1",
+    "description": "OpenAPI specifications for Metanomic",
+    "homepage": "https://github.com/Metanomic/openapi#readme",
+    "author": {
+        "email": "engineering@metanomic.net",
+        "name": "Metanomic Engineering"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Metanomic/openapi.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Metanomic/openapi/issues"
+    },
+    "scripts": {
+        "build": "swagger-cli bundle src/openapi.yaml --outfile _build/openapi.yaml --type yaml",
+        "test": "npm run build && spectral lint _build/openapi.yaml",
+        "serve": "npm run build && redoc-cli serve _build/openapi.yaml --options.onlyRequiredInSamples",
+        "html": "npm run build && redoc-cli bundle _build/openapi.yaml  --output _build/index.html --options.onlyRequiredInSamples",
+        "contracts": "npm run build && openapi-generator generate -i _build/openapi.yaml -g protobuf-schema -o _build/contracts",
+        "python": "npm run build && openapi-generator generate -i _build/openapi.yaml -g python-flask -o _build/openapi --invoker-package openapi --artifact-id openapi --api-package openapi",
+        "clean": "rm -r _build",
+        "deploy": "./ci/deploy.sh"
+    },
+    "dependencies": {
+        "@apidevtools/swagger-cli": "^4.0.4",
+        "@openapitools/openapi-generator-cli": "^2.4.26",
+        "@stoplight/spectral-cli": "^6.3.0",
+        "redoc-cli": "^0.13.10"
+    }
+}

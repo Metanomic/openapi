@@ -1,0 +1,23 @@
+name: Our API Specs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  gh-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.1.1
+        with:
+          node-version: '16.x'
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+          npm run html
+      - name: Deploy to GitHub Pages
+        run : npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
