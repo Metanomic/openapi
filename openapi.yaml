@@ -1,0 +1,912 @@
+openapi: 3.0.3
+info:
+  title: Metanomic Economy Engine
+  version: 1.0.0
+  description: 'This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints.'
+  termsOfService: 'http://metanomic.net/terms/'
+  license:
+    name: Metanomic LTD - All rights reserved
+  contact:
+    name: Metanomic Engineering
+    url: 'http://metanomic.net/support'
+    email: engineering@metanomic.net
+servers:
+  - url: 'https://sandbox.metanomic.cloud/v1'
+tags:
+  - name: games
+    description: Everything about your games
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/games'
+  - name: economies
+    description: Everything about your economies
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/economies'
+  - name: inventory
+    description: Everything about your inventory
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/inventory'
+  - name: simulation
+    description: Everything about your simulation
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/simulation'
+  - name: modules
+    description: Everything about your modules
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/modules'
+  - name: analytics
+    description: Everything about your analytics
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/analytics'
+  - name: templates
+    description: Everything about your templates
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/templates'
+  - name: events
+    description: Everything about your events
+    externalDocs:
+      description: Find out more
+      url: 'http://docs.metanomic.net/events'
+paths:
+  /games:
+    get:
+      operationId: listGames
+      summary: List all Games
+      description: List the Games that the account has created
+      tags:
+        - games
+      responses:
+        '200':
+          description: Get a paginated list of games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      summary: Creates a new Game entry
+      description: Creates a new Game entry attached to the account
+      tags:
+        - games
+      operationId: createGame
+      requestBody:
+        required: true
+        description: A JSON object with the game attributes
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGame'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    $ref: '#/components/schemas/ID'
+          links:
+            GetGameByGameId:
+              operationId: getGame
+              parameters:
+                gameId: $response.body#/id
+              description: |
+                The `id` value returned in the response can be used as the `gameId` parameter in `GET /games/{gameId}`.
+  '/games/{gameId}':
+    get:
+      operationId: getGame
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Gets a Game setup by gameId
+      description: Gets a Game setup by `gameId`
+      tags:
+        - games
+      responses:
+        '200':
+          description: The Game Setup Object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+          links:
+            GetGameByGameId:
+              operationId: getGame
+              parameters:
+                gameId: $request.path.gameId
+              description: |
+                The `id` value returned in the response can be used as the `gameId` parameter in `GET /games/{gameId}`.
+            GetGameEconomyByGameID:
+              operationId: getGameEconomyState
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+            GetGameAPIKeysByGameID:
+              operationId: listApiKeys
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the list of the API Keys
+            GetGameInventoryByGameID:
+              operationId: getGameInventory
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the attached Game inventory
+  '/games/{gameId}/apiKeys':
+    get:
+      operationId: listApiKeys
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: List The ApiKeys
+      description: List The ApiKeys that the account has created for the given Game (`gameId`)
+      tags:
+        - games
+      responses:
+        '200':
+          description: Get a list of api keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  '/games/{gameId}/economy':
+    get:
+      operationId: getGameEconomyState
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Retrieve The attached Economy state
+      description: Retrieve The attached Economy balanced state that the account has created for the given Game (`gameId`)
+      tags:
+        - games
+        - economies
+      responses:
+        '200':
+          description: Get the attached economy state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameEconomyState'
+          links:
+            GetEconomyByEconomyIDAndVersion:
+              operationId: getEconomyVersion
+              parameters:
+                economyId: null
+                economyVersion: null
+              description: Retrieve The attached Economy setup
+  '/games/{gameId}/inventory':
+    get:
+      operationId: getGameInventory
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Retrieve The Game Inventory
+      description: Retrieve The attached Game Inventory that the account has created for the given Game (`gameId`)
+      tags:
+        - games
+        - economies
+        - inventory
+      responses:
+        '200':
+          description: Get the attached inventory for the game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+    post:
+      operationId: addAssetToInventory
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Adds a Asset in the Inventory
+      description: Adds a new Asset in the attached Inventory
+      tags:
+        - games
+        - economies
+        - inventory
+      requestBody:
+        required: true
+        description: A JSON object with the asset attributes
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAsset'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    $ref: '#/components/schemas/ID'
+          links:
+            GetGameInventoryByGameID:
+              operationId: getGameInventory
+              parameters:
+                gameId: $request.path.gameId
+              description: Retrive the attached Game inventory
+            GetGameInventoryAssetByGameIDAndAssetID:
+              operationId: getGameInventoryAsset
+              parameters:
+                gameId: $request.path.gameId
+                assetId: $response.body#/id
+              description: Retrive the created asset from the attached Game inventory
+  '/games/{gameId}/inventory/{assetId}':
+    get:
+      operationId: getGameInventoryAsset
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+        - $ref: '#/components/parameters/assetId'
+      summary: Retrieve The Inventory asset
+      description: Retrieve The Inventory asset (`assetId`) that the account has created for the given Game (`gameId`)
+      tags:
+        - games
+        - economies
+        - inventory
+      responses:
+        '200':
+          description: Get the asset from the attached inventory for the game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+  '/games/{gameId}/events':
+    post:
+      operationId: submitGameEvent
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Submit an in-game Message Event
+      description: Submit a Message Event to the economic balancing engine
+      tags:
+        - games
+        - economies
+        - events
+      responses:
+        '200':
+          description: 200 response
+  '/games/{gameId}/telemetry':
+    get:
+      operationId: getTelemetryStats
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      summary: Retrieve Telemetry stats
+      description: Retrieve Telemetry stats for the given Game (`gameId`) and its attached economy and simulations
+      tags:
+        - games
+        - economies
+        - events
+        - analytics
+      responses:
+        '200':
+          description: 200 response
+  /economies:
+    get:
+      operationId: listEconomies
+      summary: List The Economies
+      description: List The Economies that the account has created
+      tags:
+        - economies
+      responses:
+        '200':
+          description: Get a paginated list of Economies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Economy'
+    post:
+      summary: Creates a new Economy entry
+      description: Creates a new Economy entry attached to the account
+      tags:
+        - economies
+      operationId: createEconomy
+      requestBody:
+        required: true
+        description: A JSON object with the Economy attributes
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEconomy'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+  '/economies/{economyId}':
+    get:
+      operationId: listEconomyVersions
+      parameters:
+        - $ref: '#/components/parameters/economyId'
+      summary: List The Economy versions
+      description: List The Economy versions setups given Economy (`economyId`)
+      tags:
+        - economies
+      responses:
+        '200':
+          description: Get a paginated list of Economies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Economy'
+          links:
+            GetEconomyByEconomyIdAndEconomyVersion:
+              operationId: getEconomyVersion
+              parameters:
+                economyId: $request.path.economyId
+                economyVersion: $response.body#/version
+              description: |
+                The `economyId` is used from the request the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.
+  '/economies/{economyId}/{economyVersion}':
+    get:
+      operationId: getEconomyVersion
+      parameters:
+        - $ref: '#/components/parameters/economyId'
+        - $ref: '#/components/parameters/economyVersion'
+      summary: Retrieve The Economy setup
+      description: Retrieve The Economy setup given Economy (`economyId`) and it's Version (`economyVersion`)
+      tags:
+        - economies
+      responses:
+        '200':
+          description: The Economy Setup Object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Economy'
+          links:
+            GetEconomyModulesByEconomyId:
+              operationId: listEconomyModules
+              parameters:
+                economyId: $request.path.economyId
+                economyVersion: $request.path.economyVersion
+              description: |
+                The `economyId` and `economyVersion` are used from the requested parameters.
+            GetEconomyProfilesByEconomyId:
+              operationId: listEconomyProfiles
+              parameters:
+                economyId: $request.path.economyId
+                economyVersion: $request.path.economyVersion
+              description: |
+                The `economyId` and `economyVersion` are used from the requested parameters.
+            GetEconomySimulationsByEconomyId:
+              operationId: listEconomySimulations
+              parameters:
+                economyId: $request.path.economyId
+                economyVersion: $request.path.economyVersion
+              description: |
+                The `economyId` and `economyVersion` are used from the requested parameters.
+  '/economies/{economyId}/{economyVersion}/modules':
+    get:
+      operationId: listEconomyModules
+      parameters:
+        - $ref: '#/components/parameters/economyId'
+        - $ref: '#/components/parameters/economyVersion'
+      summary: List The Economy Modules
+      description: List The Economy Modules that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+      tags:
+        - economies
+        - modules
+      responses:
+        '200':
+          description: Get a paginated list of Modules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+          links:
+            GetModuleByModuleId:
+              operationId: getEconomyVersion
+              parameters:
+                economyId: $request.path.economyId
+                economyVersion: $request.path.economyVersion
+              description: |
+                The `economyId` is used from the request the `economyVersion` parameter in `GET /economies/{economyId}/{economyVersion}`.
+  '/economies/{economyId}/{economyVersion}/profiles':
+    get:
+      operationId: listEconomyProfiles
+      parameters:
+        - $ref: '#/components/parameters/economyId'
+        - $ref: '#/components/parameters/economyVersion'
+      summary: List The Economy Simulation Profiles
+      description: List The Economy Simulation Profiles that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+      tags:
+        - economies
+        - modules
+        - simulation
+      responses:
+        '200':
+          description: 200 response
+  '/economies/{economyId}/{economyVersion}/simulations':
+    get:
+      operationId: listEconomySimulations
+      parameters:
+        - $ref: '#/components/parameters/economyId'
+        - $ref: '#/components/parameters/economyVersion'
+      summary: List The Economy Simulations
+      description: List The Economy Simulations that the account has created for the given Economy (`economyId`) and it's Version (`economyVersion`)
+      tags:
+        - economies
+        - simulation
+      responses:
+        '200':
+          description: 200 response
+  /modules:
+    get:
+      operationId: listModules
+      summary: List The Available Modules
+      description: List The Available to use Economy modules for the current account
+      tags:
+        - modules
+      responses:
+        '200':
+          description: Get a paginated list of Economy Modules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+  '/modules/{moduleId}':
+    get:
+      operationId: getModule
+      parameters:
+        - $ref: '#/components/parameters/moduleId'
+      summary: Retrieve The attached Module
+      description: Retrieve The Module that the account has created for the given Game (`moduleId`)
+      tags:
+        - modules
+      responses:
+        '200':
+          description: The Module Object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+  /templates:
+    get:
+      operationId: listTemplates
+      summary: List The Economy Templates
+      description: List The Economy Templates available for the current account
+      tags:
+        - economies
+        - templates
+      responses:
+        '200':
+          description: Get a paginated list of Economy Templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Economy'
+components:
+  parameters:
+    assetId:
+      in: path
+      name: assetId
+      required: true
+      schema:
+        type: string
+      description: The id of the inventory asset
+      example: ebd84548-b028-11ec-b909-0242ac120002
+    economyId:
+      in: path
+      name: economyId
+      required: true
+      schema:
+        type: string
+      description: The id of the economy instance
+      example: ebd84548-b028-11ec-b909-0242ac120002
+    economyVersion:
+      in: path
+      name: economyVersion
+      required: true
+      schema:
+        type: string
+      description: The version of the economy instance
+      example: draft-123
+    gameId:
+      in: path
+      name: gameId
+      required: true
+      schema:
+        type: string
+      description: The id of the game instance
+      example: ebd84548-b028-11ec-b909-0242ac120002
+    moduleId:
+      in: path
+      name: moduleId
+      required: true
+      schema:
+        type: string
+      description: The id of the Module instance
+      example: ebd84548-b028-11ec-b909-0242ac120002
+  schemas:
+    ID:
+      type: string
+      description: The instance ID
+      example: ebd84548-b028-11ec-b909-0242ac120002
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Game:
+      allOf:
+        - $ref: '#/components/schemas/NewGame'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    Economy:
+      allOf:
+        - $ref: '#/components/schemas/NewEconomy'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    GameEconomyState:
+      allOf:
+        - $ref: '#/components/schemas/State'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+    Module:
+      allOf:
+        - $ref: '#/components/schemas/NewModule'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    Asset:
+      allOf:
+        - $ref: '#/components/schemas/NewAsset'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    Inventory:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+    Event:
+      allOf:
+        - $ref: '#/components/schemas/NewEvent'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ID'
+            tags:
+              $ref: '#/components/schemas/Tags'
+    Tags:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
+    Tag:
+      type: string
+      example: drafting
+    GameElements:
+      type: array
+      items:
+        $ref: '#/components/schemas/GameElement'
+    GameElement:
+      type: string
+      enum:
+        - NFTs
+        - Blockchain
+        - P2E
+        - P&E
+        - Governance
+        - Monetary
+        - Tokenomics
+        - Leveling
+        - Mapping
+        - Mining
+        - Burning
+        - Gathering
+        - Skining
+    GameGenres:
+      type: array
+      items:
+        $ref: '#/components/schemas/GameGenre'
+    GameGenre:
+      type: string
+      enum:
+        - Sandbox
+        - Real-time strategy (RTS)
+        - Shooters (FPS and TPS)
+        - Multiplayer online battle arena (MOBA)
+        - RPG
+        - Simulation
+        - Puzzlers
+        - Action-adventure
+        - Survival
+        - Platformer
+    NewGame:
+      type: object
+      required:
+        - title
+        - description
+        - genre
+        - elements
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        elements:
+          $ref: '#/components/schemas/GameElements'
+        genre:
+          $ref: '#/components/schemas/GameGenres'
+    ModuleAtomicType:
+      type: string
+      enum:
+        - DAG
+        - Time
+        - Conditional
+        - Probabilistic
+        - Set
+        - Const
+        - Lambda
+        - Profile
+    NewModule:
+      type: object
+      required:
+        - title
+        - description
+        - atomicType
+        - executionStack
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        atomicType:
+          $ref: '#/components/schemas/ModuleAtomicType'
+        executionStack:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+    NewEconomy:
+      type: object
+      required:
+        - title
+        - description
+        - genre
+        - elements
+        - executionStack
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        elements:
+          $ref: '#/components/schemas/GameElements'
+        genre:
+          $ref: '#/components/schemas/GameGenres'
+        executionStack:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+    State:
+      type: object
+      additionalProperties: true
+      properties:
+        last_update:
+          type: number
+        executionStack:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+        assets:
+          type: array
+          items: {}
+        values:
+          type: array
+          items: {}
+    AssetType:
+      type: string
+      enum:
+        - Resource
+        - Item
+        - Craft
+        - Input
+        - Modifier
+    NewAsset:
+      type: object
+      required:
+        - title
+        - description
+        - categories
+        - classification
+        - variables
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        assetType:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetType'
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ID'
+        conditions:
+          type: array
+          items:
+            type: object
+        categories:
+          type: array
+          items:
+            type: string
+        classification:
+          type: string
+        variables:
+          type: object
+    EventType:
+      type: string
+      enum:
+        - Action
+        - Transaction
+        - Spread
+        - Traffic
+        - Supply
+        - Craft
+        - Spawn
+        - Gathering
+        - Wallet
+        - Resistance
+        - Gear
+        - Reward
+        - Currency
+        - AppStart
+        - AppRunning
+        - DeviceInfo
+        - AppStop
+        - AppUpdate
+        - AppInstall
+        - NewInstall
+        - NewUser
+        - NewPlayer
+        - NewItem
+        - NewCategory
+        - NewClass
+        - DDNADontTrack
+        - ClientDevice
+        - GameStarted
+        - GameEnded
+        - GameRunning
+        - LevelStart
+        - LevelComplete
+        - LevelFail
+        - LevelQuit
+        - LevelSkip
+        - LevelUp
+        - StoreOpened
+        - StoreItemClick
+        - ItemAcquired
+        - ItemSpent
+        - DailyActiveUsers
+        - MonthlyActiveUsers
+        - TotalSessions
+        - SessionsPerUser
+        - TimeSpentInApp
+        - Debug
+        - Custom
+    NewEvent:
+      type: object
+      required:
+        - eventType
+        - value
+      properties:
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        userID:
+          $ref: '#/components/schemas/ID'
+        installationID:
+          $ref: '#/components/schemas/ID'
+        playerID:
+          $ref: '#/components/schemas/ID'
+        sessionID:
+          $ref: '#/components/schemas/ID'
+        source:
+          type: string
+        environment:
+          type: string
+        version:
+          type: string
+        method:
+          type: string
+        locale:
+          type: string
+        platform:
+          type: string
+        clientDevice:
+          type: string
+        userCountry:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        value:
+          type: object
+    Name:
+      type: object
+      properties:
+        property:
+          type: integer
+  responses:
+    UnexpectedError:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NullResponse:
+      description: Null response
+    Created:
+      description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/ID'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: api_key
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://domain.test/api/oauth/dialog'
+          tokenUrl: 'https://domain.test/api/oauth/token'
+          scopes:
+            read: example read scope
+            write: example write scope
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
