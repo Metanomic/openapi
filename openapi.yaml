@@ -4,8 +4,40 @@ info:
   version: 1.0.0
   x-logo:
     url: 'https://avatars.githubusercontent.com/u/93377884?s=200&v=4'
+    altText: Metanomic
   description: |
-    This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints.
+    # The Metanomic API Specification
+
+    This is the API server for the Metanomic Economy Engine.
+    You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net).
+    You will need a set of Account API Keys to test the entrypoints.
+
+    The goal of this specification is to define a standard,
+    language-agnostic interface for API clients of the platform.
+    We want you to:
+
+    - be able to discover and understand the capabilities
+      of the service without access to source
+
+    - follow the the documentation to define the requirements of integrating with Metanomic
+
+    - understand and interact with our remote services with a minimal amount of
+      implementation logic.
+
+    ## Changelog
+
+    All notable changes to this project will be documented in this file.
+
+    The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+    and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+    [1.0.0] - 2022-04-17 - [Metanomic Engineering](mailto:engineering@metanomic.net)
+
+    - Launch of initial documentation
+
+    ## Concepts of Entities
+
+    The Metanomic platform introduces a set of proprietary economic and classification algorithms based in probabilistic and deep-learning models that are capable of managing a large, complex virtual economy, with both fiscal and monetary components; game-design concepts; governance; a marketplace; a player Wallet and identity system. These link together and integrate under one unified API (the current API), in order to create a customisable end-to-end gaming economy platform.
   termsOfService: 'http://metanomic.net/terms/'
   license:
     name: Metanomic LTD - All rights reserved
@@ -15,28 +47,34 @@ info:
     email: engineering@metanomic.net
 servers:
   - url: 'https://sandbox.metanomic.cloud/v1'
+    description: Public Sandbox Testbed server
 tags:
   - name: games
+    x-displayName: Games
     description: Everything about your games
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/games'
   - name: economies
+    x-displayName: Economies
     description: Everything about your economies
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/economies'
   - name: inventory
+    x-displayName: In-Game Inventory
     description: Everything about your inventory
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/inventory'
   - name: simulation
+    x-displayName: Simulation of Economies
     description: Everything about your simulation
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/simulation'
   - name: modules
+    x-displayName: Economy Modules
     description: Everything about your modules
     externalDocs:
       description: Find out more
@@ -47,15 +85,31 @@ tags:
       description: Find out more
       url: 'http://docs.metanomic.net/analytics'
   - name: templates
+    x-displayName: Economy Templates
     description: Everything about your templates
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/templates'
   - name: events
+    x-displayName: Eventing & Telemetry
     description: Everything about your events
     externalDocs:
       description: Find out more
       url: 'http://docs.metanomic.net/events'
+x-tagGroups:
+  - name: In-Gaming
+    tags:
+      - games
+      - inventory
+  - name: Economies
+    tags:
+      - economies
+      - modules
+      - templates
+  - name: Eventing & Data
+    tags:
+      - events
+      - analytics
 paths:
   /games:
     get:
@@ -72,7 +126,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Game'
+                  $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/0'
     post:
       summary: Creates a new Game entry
       description: Creates a new Game entry attached to the account
@@ -118,7 +172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Game'
+                $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/0'
           links:
             GetGameByGameId:
               operationId: getGame
@@ -175,7 +229,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GameEconomyState'
+                $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/2'
           links:
             GetEconomyByEconomyIDAndVersion:
               operationId: getEconomyVersion
@@ -303,7 +357,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Economy'
+                  $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/1'
     post:
       summary: Creates a new Economy entry
       description: Creates a new Economy entry attached to the account
@@ -337,7 +391,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Economy'
+                  $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/1'
           links:
             GetEconomyByEconomyIdAndEconomyVersion:
               operationId: getEconomyVersion
@@ -362,7 +416,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Economy'
+                $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/1'
           links:
             GetEconomyModulesByEconomyId:
               operationId: listEconomyModules
@@ -490,7 +544,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Economy'
+                  $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/1'
 components:
   parameters:
     assetId:
@@ -550,30 +604,11 @@ components:
         message:
           type: string
     Game:
-      allOf:
-        - $ref: '#/components/schemas/NewGame'
-        - type: object
-          properties:
-            id:
-              $ref: '#/components/schemas/ID'
-            tags:
-              $ref: '#/components/schemas/Tags'
+      $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/0'
     Economy:
-      allOf:
-        - $ref: '#/components/schemas/NewEconomy'
-        - type: object
-          properties:
-            id:
-              $ref: '#/components/schemas/ID'
-            tags:
-              $ref: '#/components/schemas/Tags'
+      $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/1'
     GameEconomyState:
-      allOf:
-        - $ref: '#/components/schemas/State'
-        - type: object
-          properties:
-            id:
-              $ref: '#/components/schemas/ID'
+      $ref: '#/x-webhooks/StateUpdate/post/requestBody/content/application~1json/schema/allOf/2'
     Module:
       allOf:
         - $ref: '#/components/schemas/NewModule'
@@ -904,3 +939,48 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-webhooks:
+  StateUpdate:
+    post:
+      summary: State Update
+      description: This is the receiving signal information when the economyState is updated
+      operationId: statusUpdate
+      tags:
+        - events
+      requestBody:
+        description: The game State has been updated
+        content:
+          application/json:
+            schema:
+              allOf:
+                - allOf:
+                    - $ref: '#/components/schemas/NewGame'
+                    - type: object
+                      properties:
+                        id:
+                          $ref: '#/components/schemas/ID'
+                        tags:
+                          $ref: '#/components/schemas/Tags'
+                - allOf:
+                    - $ref: '#/components/schemas/NewEconomy'
+                    - type: object
+                      properties:
+                        id:
+                          $ref: '#/components/schemas/ID'
+                        tags:
+                          $ref: '#/components/schemas/Tags'
+                - allOf:
+                    - $ref: '#/components/schemas/State'
+                    - type: object
+                      properties:
+                        id:
+                          $ref: '#/components/schemas/ID'
+      responses:
+        '200':
+          description: Return a 200 or 202 status to indicate that the data was received successfully
+        '202':
+          description: Return a 200 or 202 status to indicate that the data was received successfully
+        4xx:
+          description: Any return of a non 2xx will be logged as an error
+        5xx:
+          description: Any return of a non 2xx will be logged as an error
