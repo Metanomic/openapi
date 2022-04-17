@@ -3,9 +3,10 @@ info:
     title: "Metanomic Economy Engine"
     version: 1.0.0
     x-logo:
-        url: 'https://avatars.githubusercontent.com/u/93377884?s=200&v=4'
+        url: "https://avatars.githubusercontent.com/u/93377884?s=200&v=4"
+        altText: "Metanomic"
     description:
-        $ref: ./info-description.md
+        $ref: ./main-description.md
     termsOfService: "http://metanomic.net/terms/"
     license:
         name: Metanomic LTD - All rights reserved
@@ -15,28 +16,34 @@ info:
         email: "engineering@metanomic.net"
 servers:
     - url: https://sandbox.metanomic.cloud/v1
+      description: Public Sandbox Testbed server
 tags:
     - name: "games"
+      x-displayName: Games
       description: "Everything about your games"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/games"
     - name: "economies"
+      x-displayName: Economies
       description: "Everything about your economies"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/economies"
     - name: "inventory"
+      x-displayName: In-Game Inventory
       description: "Everything about your inventory"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/inventory"
     - name: "simulation"
+      x-displayName: Simulation of Economies
       description: "Everything about your simulation"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/simulation"
     - name: "modules"
+      x-displayName: Economy Modules
       description: "Everything about your modules"
       externalDocs:
           description: "Find out more"
@@ -47,15 +54,31 @@ tags:
           description: "Find out more"
           url: "http://docs.metanomic.net/analytics"
     - name: "templates"
+      x-displayName: Economy Templates
       description: "Everything about your templates"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/templates"
     - name: "events"
+      x-displayName: Eventing & Telemetry
       description: "Everything about your events"
       externalDocs:
           description: "Find out more"
           url: "http://docs.metanomic.net/events"
+x-tagGroups:
+    - name: In-Gaming
+      tags:
+          - games
+          - inventory
+    - name: Economies
+      tags:
+          - economies
+          - modules
+          - templates
+    - name: Eventing & Data
+      tags:
+          - events
+          - analytics
 paths:
     /games:
         $ref: "./resources/games.yaml"
@@ -108,3 +131,30 @@ components:
             type: http
             scheme: bearer
             bearerFormat: JWT
+
+x-webhooks:
+    StateUpdate:
+        post:
+            summary: State Update
+            description: This is the receiving signal information when the economyState is updated
+            operationId: statusUpdate
+            tags:
+                - events
+            requestBody:
+                description: The game State has been updated
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "./schemas/Game.yaml"
+                                - $ref: "./schemas/Economy.yaml"
+                                - $ref: "./schemas/GameEconomyState.yaml"
+            responses:
+                "200":
+                    description: Return a 200 or 202 status to indicate that the data was received successfully
+                "202":
+                    description: Return a 200 or 202 status to indicate that the data was received successfully
+                "4xx":
+                    description: Any return of a non 2xx will be logged as an error
+                "5xx":
+                    description: Any return of a non 2xx will be logged as an error

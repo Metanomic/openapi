@@ -1,1 +1,0 @@
-This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints.
