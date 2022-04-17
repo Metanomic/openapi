@@ -2,7 +2,10 @@ openapi: 3.0.3
 info:
     title: "Metanomic Economy Engine"
     version: 1.0.0
-    description: "This is the API server for the Metanomic Economy Engine. You can find out more about Metanomic at [http://metanomic.net](http://metanomic.net). You will need a set of Account API Keys to test the entrypoints."
+    x-logo:
+        url: 'https://avatars.githubusercontent.com/u/93377884?s=200&v=4'
+    description:
+        $ref: ./info-description.md
     termsOfService: "http://metanomic.net/terms/"
     license:
         name: Metanomic LTD - All rights reserved
@@ -100,16 +103,7 @@ components:
         apiKey:
             type: apiKey
             name: api_key
-            in: query
-        oauth2:
-            type: oauth2
-            flows:
-                authorizationCode:
-                    authorizationUrl: https://domain.test/api/oauth/dialog
-                    tokenUrl: https://domain.test/api/oauth/token
-                    scopes:
-                        read: example read scope
-                        write: example write scope
+            in: header
         JWT:
             type: http
             scheme: bearer
