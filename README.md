@@ -19,7 +19,7 @@ We need a common design and communication language to describe the architecture 
 ### Requirements
 
 - Node.js (16 or latest)
-- yarn (1.22.17 or latest)
+- npm (8.1.2 or latest)
 
 ### Installation
 
@@ -32,7 +32,7 @@ We need a common design and communication language to describe the architecture 
 2. Install the project dependencies.
 
    ```sh
-   yarn
+   npm install
    ```
 
 3. Edit `openapi.yaml` for the high-level documentation. If you’re not familiar with the OpenAPI Specification, read [Getting started with OAS](https://swagger.io/solutions/getting-started-with-oas/) first.
@@ -46,7 +46,7 @@ The project will build, lint, and preview the OpenAPI document from the terminal
 The command bundles the spec as one `.yaml` file.
 
 ```sh
-yarn build
+npm run build
 ```
 
 The minified document is stored in `_build/openapi.yaml`.
@@ -56,7 +56,7 @@ The minified document is stored in `_build/openapi.yaml`.
 The command checks if the document follows the OpenAPI 3.0 Specification.
 
 ```sh
-yarn test
+npm test
 ```
 
 ### Preview
@@ -64,10 +64,9 @@ yarn test
 The command builds a docs site so that you can view the rendering on your local browser.
 
 ```sh
-yarn serve
+npm run serve
 ```
 
 The server starts on [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 The site is generated with [ReDoc](https://github.com/Redocly/redoc).
-Here's a preview of a site generated with this command: [Swagger Petstore Reference Documentation](https://dgarcia360.github.io/openapi-boilerplate/).
