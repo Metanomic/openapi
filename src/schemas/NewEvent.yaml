@@ -1,36 +1,66 @@
 type: object
 required:
-    - eventType
+    - type
     - value
+    - appId
 properties:
-    eventType:
+    type:
         $ref: "./EventType.yaml"
-    userID:
-        $ref: "./ID.yaml"
-    installationID:
-        $ref: "./ID.yaml"
-    playerID:
-        $ref: "./ID.yaml"
-    sessionID:
-        $ref: "./ID.yaml"
-    source:
-        type: string
-    environment:
-        type: string
     version:
-        type: string
-    method:
-        type: string
-    locale:
-        type: string
-    platform:
-        type: string
-    clientDevice:
-        type: string
-    userCountry:
-        type: string
+        $ref: "./VersionRef.yaml"
+    eventId:
+        $ref: "./ID.yaml"
+    appId:
+        $ref: "./ID.yaml"
+    userId:
+        $ref: "./ID.yaml"
+    installationId:
+        $ref: "./ID.yaml"
+    playerId:
+        $ref: "./ID.yaml"
+    sessionId:
+        $ref: "./ID.yaml"
+    doTrack:
+        type: boolean
+    expiresAt:
+        type: integer
+        format: int32
+    receivedAt:
+        type: integer
+        format: int32
+    sentAt:
+        type: integer
+        format: int32
     timestamp:
         type: integer
         format: int64
+    eventSinceAppstart:
+        type: integer
+        format: int32
+    sourceContext:
+        $ref: "./EventSourceContext.yaml"
     value:
-        type: object
+        $ref: "./EventValue.yaml"
+    linkedAssets:
+        type: array
+        items:
+            $ref: "./Asset.yaml"
+    linkedProduct:
+        type: array
+        items:
+            $ref: "./Product.yaml"
+    # The list below was previously here #
+    # source:
+    #    type: string
+    # environment:
+    #    type: string
+    # method:
+    #    type: string
+    # locale:
+    #    type: string
+    # platform:
+    #    type: string
+    # clientDevice:
+    #    type: string
+    # userCountry:
+    #    type: string

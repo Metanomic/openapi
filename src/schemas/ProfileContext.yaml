@@ -1,0 +1,34 @@
+type: object
+properties:
+    id:
+        $ref: "./ID.yaml"
+    name:
+        type: string
+    xp:
+        type: number
+    champion:
+        type: string
+    skin:
+        type: string
+    isPremium:
+        type: boolean
+    class:
+        type: string
+    subclass:
+        type: string
+    race:
+        type: string
+    mastery:
+        type: string
+    groupId:
+        type: string
+    guildId:
+        type: string
+    teamId:
+        type: string
+    partyId:
+        type: string
+    factionId:
+        type: string
+    channelId:
+        type: string

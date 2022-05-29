@@ -1,0 +1,14 @@
+type: object
+properties:
+    recipient:
+        type: string
+    sender:
+        type: string
+    groupName:
+        type: string
+    via:
+        type: string
+    message:
+        type: string
+    rating:
+        type: string
