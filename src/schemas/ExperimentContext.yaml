@@ -1,0 +1,12 @@
+type: object
+properties:
+    id:
+        $ref: "./ID.yaml"
+    name:
+        type: string
+    group:
+        type: string
+    variation:
+        type: string
+    uri:
+        type: string

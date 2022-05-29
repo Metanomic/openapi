@@ -5,3 +5,5 @@ enum:
     - Craft # eg a potion
     - Input # Set of Resources, (Monsters/Entity??)
     - Modifier # Player Stat, Stat that enriches craft
+    - Profile # Player Profile instance
+    - Character # Profile character, eg warrior class

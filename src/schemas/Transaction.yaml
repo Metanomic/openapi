@@ -1,0 +1,63 @@
+type: object
+properties:
+    id:
+        type: string
+    receipt:
+        type: string
+    receiptSignature:
+        type: string
+    transactorId:
+        type: string
+    transactorName:
+        type: string
+    transactorType:
+        type: string
+    receiverId:
+        type: string
+    receiverName:
+        type: string
+    receiverType:
+        type: string
+    network:
+        type: string
+    checkoutId:
+        type: string
+    orderId:
+        type: string
+    storeId:
+        type: string
+    storeSourceId:
+        type: string
+    renewalCount:
+        type: integer
+        format: int32
+    feesTotal:
+        type: number
+        format: float
+    priceTotal:
+        type: number
+        format: float
+    discountTotal:
+        type: number
+        format: float
+    quantity:
+        type: integer
+        format: int32
+    amount:
+        type: integer
+        format: int32
+    currency:
+        type: string
+    paymentMethod:
+        type: string
+    paymentProvider:
+        type: string
+    virtualAmount:
+        type: integer
+        format: int32
+    virtualCurrency:
+        type: string
+    virtualCurrencyType:
+        type: string
+    blob:
+        type: string

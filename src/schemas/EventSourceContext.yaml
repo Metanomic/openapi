@@ -1,0 +1,20 @@
+type: object
+properties:
+    app:
+        $ref: "./AppContext.yaml"
+    campaign:
+        $ref: "./CampaignContext.yaml"
+    device:
+        $ref: "./DeviceContext.yaml"
+    source:
+        $ref: "./SourceContext.yaml"
+    experiment:
+        $ref: "./ExperimentContext.yaml"
+    session:
+        $ref: "./SessionContext.yaml"
+    profile:
+        $ref: "./ProfileContext.yaml"
+    targetProfile:
+        $ref: "./ProfileContext.yaml"
+    map:
+        $ref: "./MapContext.yaml"

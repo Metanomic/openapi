@@ -1,0 +1,30 @@
+type: object
+properties:
+    name:
+        type: string
+    affiliate:
+        type: string
+    provider:
+        type: string
+    source:
+        type: string
+    medium:
+        type: string
+    term:
+        type: string
+    contentId:
+        type: string
+    contentType:
+        type: string
+    creativeUri:
+        type: string
+    marketingTactic:
+        type: string
+    group:
+        type: string
+    uri:
+        type: string
+    eCPM:
+        type: number
+    idfv:
+        type: string

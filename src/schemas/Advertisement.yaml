@@ -1,0 +1,14 @@
+type: object
+properties:
+    publisher:
+        type: string
+    position:
+        type: number
+    totalLength:
+        type: number
+    quartile:
+        type: number
+    placementId:
+        type: string
+    placementName:
+        type: string

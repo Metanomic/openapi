@@ -1,0 +1,10 @@
+type: object
+properties:
+    level:
+        type: number
+    value:
+        type: number
+    class:
+        type: string
+    isUnique:
+        type: boolean

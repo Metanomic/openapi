@@ -1,0 +1,28 @@
+type: object
+required:
+    - productId
+properties:
+    productId:
+        $ref: "./ID.yaml"
+    sku:
+        type: string
+    category:
+        type: string
+    name:
+        type: string
+    brand:
+        type: string
+    variant:
+        type: string
+    quantity:
+        type: integer
+        format: int32
+    price:
+        type: number
+        format: float
+    currency:
+        type: string
+    imageUri:
+        type: string
+    uri:
+        type: string

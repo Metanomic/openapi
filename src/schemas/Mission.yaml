@@ -1,0 +1,14 @@
+type: object
+properties:
+    duration:
+        type: number
+    rank:
+        type: number
+    rankName:
+        type: string
+    score:
+        type: number
+    moves:
+        type: number
+    remaining:
+        type: number

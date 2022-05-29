@@ -1,0 +1,14 @@
+type: object
+properties:
+    key:
+        type: string
+    title:
+        type: string
+    term:
+        type: string
+    count:
+        type: number
+    uri:
+        type: string
+    isIPFS:
+        type: boolean

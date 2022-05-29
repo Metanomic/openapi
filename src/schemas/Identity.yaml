@@ -1,0 +1,19 @@
+type: object
+required:
+    - profileId
+    - anonymous
+properties:
+    userId:
+        $ref: "./ID.yaml"
+    profileId:
+        $ref: "./ID.yaml"
+    wallet:
+        $ref: "./ID.yaml"
+    anonymous:
+        type: boolean
+    username:
+        type: string
+    email:
+        type: string
+    plan:
+        type: string

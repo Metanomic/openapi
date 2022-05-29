@@ -1,0 +1,30 @@
+type: object
+properties:
+    isAchievementReward:
+        type: boolean
+    isRedeem:
+        type: boolean
+    isReward:
+        type: boolean
+    isAdReward:
+        type: boolean
+    isInappPurchase:
+        type: boolean
+    isRenewal:
+        type: boolean
+    isPurchase:
+        type: boolean
+    isFXTrade:
+        type: boolean
+    isSale:
+        type: boolean
+    isTrade:
+        type: boolean
+    isDrop:
+        type: boolean
+    isLoot:
+        type: boolean
+    isGained:
+        type: boolean
+    isContract:
+        type: boolean

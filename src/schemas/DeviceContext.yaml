@@ -1,0 +1,50 @@
+type: object
+properties:
+    instalationId:
+        type: string
+    id:
+        $ref: "./ID.yaml"
+    fullScreen:
+        type: boolean
+    adTrackingEnabled:
+        type: boolean
+    manufacturer:
+        type: string
+    model:
+        type: string
+    name:
+        type: string
+    osName:
+        type: string
+    osType:
+        type: string
+    osVersion:
+        type: string
+    jailbroken:
+        type: boolean
+    token:
+        type: string
+    ip:
+        type: string
+    userAgent:
+        type: string
+    engine:
+        type: string
+    engineVersion:
+        type: string
+    client:
+        type: string
+    locale:
+        type: string
+    bluetooh:
+        type: boolean
+    carrier:
+        type: string
+    cellular:
+        type: boolean
+    wifi:
+        type: boolean
+    screen:
+        $ref: "./DeviceScreen.yaml"
+    location:
+        $ref: "./DeviceLocation.yaml"
