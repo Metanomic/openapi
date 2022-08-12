@@ -1,0 +1,10 @@
+type: object
+properties:
+    id:
+        $ref: "./ID.yaml"
+    name:
+        type: string
+    level:
+        type: number
+    position:
+        type: number

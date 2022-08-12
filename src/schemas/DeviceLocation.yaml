@@ -1,0 +1,14 @@
+type: object
+properties:
+    city:
+        type: string
+    country:
+        type: string
+    continent:
+        type: string
+    latitude:
+        type: number
+    longitude:
+        type: number
+    speed:
+        type: number

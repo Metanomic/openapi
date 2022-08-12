@@ -1,0 +1,18 @@
+type: object
+properties:
+    id:
+        type: string
+    name:
+        type: string
+    value:
+        type: number
+    level:
+        type: number
+    amount:
+        type: number
+    isUnique:
+        type: boolean
+    isItem:
+        type: boolean
+    isCurrency:
+        type: boolean

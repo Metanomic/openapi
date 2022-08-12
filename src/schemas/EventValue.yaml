@@ -1,0 +1,32 @@
+type: object
+required:
+    - identity
+properties:
+    identity:
+        $ref: "./Identity.yaml"
+    content:
+        $ref: "./Content.yaml"
+    linkedContent:
+        $ref: "./Content.yaml"
+    prize:
+        $ref: "./Prize.yaml"
+    gear:
+        $ref: "./Gear.yaml"
+    txType:
+        $ref: "./TxType.yaml"
+    transaction:
+        $ref: "./Transaction.yaml"
+    price:
+        $ref: "./Price.yaml"
+    social:
+        $ref: "./Social.yaml"
+    mission:
+        $ref: "./Mission.yaml"
+    ad:
+        $ref: "./Advertisement.yaml"
+    customRef:
+        type: string
+    customValue:
+        type: number
+    customMeta:
+        type: object

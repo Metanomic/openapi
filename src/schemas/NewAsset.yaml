@@ -22,10 +22,10 @@ properties:
         type: array
         items:
             $ref: "./ID.yaml"
-    conditions: # Condition<F: module, Event>
-        type: array
-        items:
-            type: object
+    # conditions: # Condition<F: module, Event>
+    #     type: array
+    #     items:
+    #         type: object
     categories: # List<String>, eg 1. Melee, 2. Sword
         type: array
         items:
